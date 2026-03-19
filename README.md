@@ -1,25 +1,3 @@
----
-tagline: "CSS + JavaScript. Nothing else."
-pitch_opener: "CSS is great. When you need more, there's JavaScript."
-install: "npm install @lass-lang/vite-plugin-lass"
-version: "v0.1.x"
-ctas:
-  - label: Get Started
-    href: /getting-started/
-  - label: GitHub
-    href: https://github.com/lass-lang
-footer:
-  links:
-    - label: GitHub
-      href: https://github.com/lass-lang
-    - label: npm
-      href: https://www.npmjs.com/package/@lass-lang/vite-plugin-lass
-    - label: Docs
-      href: /getting-started/
-    - label: MIT License
-      href: https://github.com/lass-lang/vite-plugin-lass/blob/main/LICENSE
----
-
 # Lass
 
 > CSS + JavaScript. Nothing else.
