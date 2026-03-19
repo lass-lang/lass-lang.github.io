@@ -117,7 +117,7 @@ export default defineConfig({
 
 ## Links
 
-- [Documentation](/getting-started/)
+- [More examples](examples/)
 - [GitHub](https://github.com/lass-lang)
 - [npm: @lass-lang/vite-plugin-lass](https://www.npmjs.com/package/@lass-lang/vite-plugin-lass)
 - [MIT License](https://github.com/lass-lang/vite-plugin-lass/blob/main/LICENSE)
