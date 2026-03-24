@@ -10,7 +10,7 @@ export default defineConfig(async () => ({
     }),
   ],
   build: {
-    outDir: 'built_pages',
+    outDir: 'docs',
     emptyOutDir: true,
     minify: false,
     rollupOptions: {
