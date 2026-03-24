@@ -166,7 +166,7 @@ const sizes = [4, 8, 16, 24, 32]
 .button {
   border: 2px solid oklch(50% 0.2 250);
   outline-offset: 4px;
-  outline: @border;
+  outline: @(border);
 }
 ```
 
@@ -180,7 +180,7 @@ const sizes = [4, 8, 16, 24, 32]
 }
 ```
 
-**Notes:** `@border` reads the previously declared `border` value at build time — no repetition, no variable. The full form `@(border)` also works. This is compile-time CSS value reuse, unique to Lass. The CSS-only alternative would require repeating `2px solid oklch(50% 0.2 250)` or introducing a custom property for a single-use value. Story 9.3: show `.lass` on left, `.css` on right.
+**Notes:** `@(border)` reads the previously declared `border` value at build time — no repetition, no variable. This is compile-time CSS value reuse, unique to Lass. The CSS-only alternative would require repeating `2px solid oklch(50% 0.2 250)` or introducing a custom property for a single-use value. Story 9.3: show `.lass` on left, `.css` on right.
 
 ---
 

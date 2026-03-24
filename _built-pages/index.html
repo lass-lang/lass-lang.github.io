@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lass — CSS + JavaScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real JavaScript instead of inventing a new language. Compiles to static CSS at build time.">
+  <link rel="stylesheet" href="assets/index-EHLhZfkS.css">
+</head>
+<body>
+  <main class="page">
+    <h1>Lass</h1>
+<blockquote>
+<p>CSS + JavaScript. Nothing else.</p>
+</blockquote>
+<h2>CSS is already great</h2>
+<p>Modern CSS is remarkable. Use it.</p>
+<p>Custom properties, nesting, container queries, cascade layers, <code>color-mix()</code>, <code>oklch()</code>, logical properties, <code>:has()</code> — these aren't workarounds. They're the language doing exactly what it was designed to do.</p>
+<p>Lass doesn't replace any of that. It compiles away the moment you push. What's left is CSS.</p>
+<blockquote>
+<p>&quot;A preprocessor that gets out of the way. Write CSS features the day they ship — Lass only touches what you ask it to.&quot;</p>
+</blockquote>
+<h2>When you need logic, use JS</h2>
+<p>Other preprocessors invented their own languages to fill the gap. Sass gave you <code>@mixin</code>, <code>@include</code>, <code>@each</code>, <code>@if</code>, <code>@function</code>. Less gave you <code>.mixin()</code>, <code>each()</code>, <code>when()</code>. New syntax. New rules. New things to remember.</p>
+<p>CSS itself won't add loops. It's declarative — a bucket of properties, not a sequence of steps. That gap is permanent.</p>
+<p>Lass's answer: don't learn a new language. Use the one you already know.</p>
+<p>Real functions. Real imports. Real loops. JavaScript.</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>import tokens from './tokens.json'</span></span>
+<span class="line"><span>--- design token custom properties</span></span>
+<span class="line"><span>:root {</span></span>
+<span class="line"><span>  {{ Object.entries(tokens.color).map(([k, v]) => @{ --color-{{ k }}: {{ v }}; }) }}</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p>No <code>@mixin</code>. No <code>@include</code>. No new syntax to learn.</p>
+<h2>Six symbols bridge the gap</h2>
+<p>That's the whole surface area between JavaScript and CSS in Lass:</p>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Direction</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>---</code></td>
+<td>separator</td>
+<td>Divides JS preamble from CSS zone</td>
+</tr>
+<tr>
+<td><code>{{ expr }}</code></td>
+<td>JS → CSS</td>
+<td>Evaluates any JS expression, inserts result</td>
+</tr>
+<tr>
+<td><code>$name</code></td>
+<td>JS → CSS</td>
+<td>Text substitution from a <code>$</code>-prefixed variable</td>
+</tr>
+<tr>
+<td><code>@(prop)</code></td>
+<td>CSS → JS</td>
+<td>Reads the last-declared value of a CSS property</td>
+</tr>
+<tr>
+<td><code>@{ css }</code></td>
+<td>CSS in JS</td>
+<td>CSS string inside JS context (for loops, functions)</td>
+</tr>
+<tr>
+<td><code>//</code></td>
+<td>—</td>
+<td>Single-line comment — stripped from output</td>
+</tr>
+</tbody>
+</table>
+<p>Six symbols. No new control flow. No custom language.</p>
+<h2>Tool, not obstacle</h2>
+<blockquote>
+<p>&quot;The most important thing is that I can still use the base language. If I have to wait for a tool to add support for CSS features — that's not a tool, that's an obstacle.&quot;
+— Miriam Suzanne, CSS Day 2025</p>
+</blockquote>
+<p>Lass passes that test. Any valid CSS in a <code>.lass</code> file compiles to identical CSS. You never wait for Lass to catch up.</p>
+<h2>Tailwind gives you utilities. Lass gives you the rest.</h2>
+<p>You don't need Lass to use Tailwind. But when Tailwind's vocabulary isn't enough — when your design system speaks in <code>morning</code>, <code>noon</code>, <code>sunset</code>, and <code>nadir</code> — Lass generates the second vocabulary from your own data, at build time, from a JSON file your designers own.</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>import palette from './brand/palette.json'</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>const propertyMap = {</span></span>
+<span class="line"><span>  bg:     color => `background-color: ${color};`,</span></span>
+<span class="line"><span>  text:   color => `color: ${color};`,</span></span>
+<span class="line"><span>  border: color => `border-color: ${color};`,</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>@import 'tailwindcss';</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>{{ Object.entries(palette.sun).flatMap(([moment, color]) =></span></span>
+<span class="line"><span>  Object.entries(propertyMap).map(([prefix, decl]) => @{</span></span>
+<span class="line"><span>    .${prefix}-sun-${moment} { {{ decl(color) }} }</span></span>
+<span class="line"><span>  })</span></span>
+<span class="line"><span>) }}</span></span></code></pre>
+<blockquote>
+<p>Note: <code>@import 'tailwindcss'</code> is CSS — it belongs in the CSS zone (after <code>---</code>), and must appear first. That's a CSS spec requirement, not a Lass rule.</p>
+</blockquote>
+<p>Both vocabularies coexist in the same <code>class=&quot;&quot;</code>:</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-html"><span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;</span><span style="color:#85E89D;--shiki-light:#22863A">div</span><span style="color:#B392F0;--shiki-light:#6F42C1"> class</span><span style="color:#E1E4E8;--shiki-light:#24292E">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"m-10 bg-sun-noon"</span><span style="color:#E1E4E8;--shiki-light:#24292E">>Good afternoon&#x3C;/</span><span style="color:#85E89D;--shiki-light:#22863A">div</span><span style="color:#E1E4E8;--shiki-light:#24292E">></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;</span><span style="color:#85E89D;--shiki-light:#22863A">div</span><span style="color:#B392F0;--shiki-light:#6F42C1"> class</span><span style="color:#E1E4E8;--shiki-light:#24292E">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"hero bg-sun-nadir"</span><span style="color:#E1E4E8;--shiki-light:#24292E">>Midnight mode&#x3C;/</span><span style="color:#85E89D;--shiki-light:#22863A">div</span><span style="color:#E1E4E8;--shiki-light:#24292E">></span></span></code></pre>
+<h2>Quick Comparison</h2>
+<p>Different tools. Different approaches. Same goal.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Sass</th>
+<th>Less</th>
+<th>Lass</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logic layer</td>
+<td>Custom language (<code>@mixin</code>, <code>@if</code>, <code>@each</code>)</td>
+<td>Custom language (<code>.mixin()</code>, <code>when()</code>)</td>
+<td>JavaScript — the real thing</td>
+</tr>
+<tr>
+<td>Variables</td>
+<td><code>$var</code> (Sass syntax)</td>
+<td><code>@var</code> (Less syntax)</td>
+<td><code>const $var = value</code> (real JS)</td>
+</tr>
+<tr>
+<td>Loops</td>
+<td><code>@each $item in $list</code></td>
+<td><code>each(@list, ...)</code></td>
+<td><code>{{ items.map(i =&gt; ...) }}</code></td>
+</tr>
+<tr>
+<td>Imports</td>
+<td><code>@use 'tokens'</code></td>
+<td><code>@import</code></td>
+<td><code>import tokens from './tokens.json'</code></td>
+</tr>
+</tbody>
+</table>
+<p>Maybe you don't need a preprocessor at all. Modern CSS is remarkable. But if you do need one — for token imports, for utility class generation, for anything that requires iteration — reach for the language you already know.</p>
+<h2>Install</h2>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">npm</span><span style="color:#9ECBFF;--shiki-light:#032F62"> install</span><span style="color:#9ECBFF;--shiki-light:#032F62"> @lass-lang/vite-plugin-lass</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --save-dev</span></span></code></pre>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-js"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">// vite.config.js</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { defineConfig } </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> 'vite'</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> lass </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> '@lass-lang/vite-plugin-lass'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">export</span><span style="color:#F97583;--shiki-light:#D73A49"> default</span><span style="color:#B392F0;--shiki-light:#6F42C1"> defineConfig</span><span style="color:#E1E4E8;--shiki-light:#24292E">({</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  plugins: [</span><span style="color:#B392F0;--shiki-light:#6F42C1">lass</span><span style="color:#E1E4E8;--shiki-light:#24292E">()]</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">})</span></span></code></pre>
+<h2>Links</h2>
+<ul>
+<li><a href="examples/">More examples</a></li>
+<li><a href="https://github.com/lass-lang">GitHub</a></li>
+<li><a href="https://www.npmjs.com/package/@lass-lang/vite-plugin-lass">npm: @lass-lang/vite-plugin-lass</a></li>
+<li><a href="https://github.com/lass-lang/vite-plugin-lass/blob/main/LICENSE">MIT License</a></li>
+</ul>
+
+  </main>
+  <script>
+  // Copy button — hero install command only
+  (function() {
+    var pre = document.querySelector('.language-bash');
+    if (!pre) return;
+    var wrap = pre.closest('pre');
+    if (!wrap) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function() {
+      navigator.clipboard.writeText(pre.textContent.trim());
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+    };
+    wrap.style.position = 'relative';
+    btn.style.position = 'absolute';
+    btn.style.top = '0.5rem';
+    btn.style.right = '0.5rem';
+    wrap.appendChild(btn);
+  })();
+  </script>
+</body>
+</html>

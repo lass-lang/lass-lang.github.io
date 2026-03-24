@@ -1,0 +1,87 @@
+import palette from '../palette.json'
+--- component styles
+
+@layer components {
+/* Hero — the h1 and opening blockquote */
+.page > h1 {
+  text-align: center;
+  background: linear-gradient(135deg, var(--sun-sunset), var(--sun-morning));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  padding-block: var(--space-xl);
+}
+
+.page > h1 + blockquote {
+  text-align: center;
+  border: none;
+  font-size: var(--font-size-xl);
+  font-style: normal;
+  color: var(--color-text-muted);
+  padding: 0;
+  max-width: 40ch;
+  margin-inline: auto;
+}
+
+/* Code blocks — Shiki-rendered */
+pre.shiki {
+  background: var(--color-code-bg);
+  padding: var(--space-md) var(--space-lg);
+  font-size: var(--font-size-sm);
+  line-height: 1.7;
+  border: 1px solid oklch(25% 0.02 270);
+  outline-offset: 2px;
+  outline: @(border);
+}
+
+/* Install section */
+.page > h2:last-of-type ~ pre {
+  max-width: 36rem;
+}
+
+/* Install command — copy button target */
+.install-command {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.copy-btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.copy-btn:hover {
+  background: var(--color-border);
+  color: var(--color-text);
+}
+
+/* Spacing scale utilities — generated from data */
+{{ [1, 2, 4, 8].map(n => @{
+.mt-{{ n }} { margin-block-start: calc(var(--space-xs) * {{ n }}); }
+}) }}
+
+/* Links section */
+.page > h2:last-of-type ~ ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+  margin-block-start: var(--space-lg);
+}
+
+/* Footer-style link list */
+.page > h2:last-of-type ~ ul li {
+  margin: 0;
+}
+}

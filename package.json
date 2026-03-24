@@ -1,0 +1,19 @@
+{
+  "name": "@lass-lang/lass-lang.dev",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "markdown-it": "^14.0.0",
+    "@shikijs/markdown-it": "^3.0.0",
+    "shiki": "^3.0.0",
+    "@lass-lang/vite-plugin-lass": "workspace:*",
+    "husky": "^9.1.7"
+  }
+}

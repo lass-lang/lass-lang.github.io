@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lass — CSS + JavaScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real JavaScript instead of inventing a new language. Compiles to static CSS at build time.">
+  <link rel="stylesheet" href="../assets/index-EHLhZfkS.css">
+</head>
+<body>
+  <main class="page">
+    <h1>Landing Page Code Examples</h1>
+<p>Five verified examples for the lass-lang.dev landing page.
+Every example has been transpiled and executed through <code>@lass-lang/core</code>.
+Tests: <code>packages/lass-core/test/landing-examples.test.ts</code></p>
+<hr>
+<h2>Example 1: CSS Passthrough</h2>
+<p><strong>Caption:</strong> Rename any <code>.css</code> file to <code>.lass</code>. Nothing changes. Start there.</p>
+<p><strong>Input (<code>card.lass</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>.card {</span></span>
+<span class="line"><span>  --card-bg: oklch(97% 0.01 240);</span></span>
+<span class="line"><span>  background: var(--card-bg);</span></span>
+<span class="line"><span>  border-radius: 8px;</span></span>
+<span class="line"><span>  padding: 1.5rem;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  &#x26; h2 {</span></span>
+<span class="line"><span>    margin: 0 0 0.5rem;</span></span>
+<span class="line"><span>    font-size: 1.25rem;</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  &#x26; p {</span></span>
+<span class="line"><span>    color: oklch(45% 0 0);</span></span>
+<span class="line"><span>    line-height: 1.6;</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>@layer components {</span></span>
+<span class="line"><span>  .card { container-type: inline-size; }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p><strong>Output (<code>card.css</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-css"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.card</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  --card-bg</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">97</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.01</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 240</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  background</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">var</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#FFAB70;--shiki-light:#E36209">--card-bg</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  border-radius</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">8</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  padding</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">1.5</span><span style="color:#F97583;--shiki-light:#D73A49">rem</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  &#x26; </span><span style="color:#79B8FF;--shiki-light:#005CC5">h</span><span style="color:#E1E4E8;--shiki-light:#24292E">2 {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    margin</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">0</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.5</span><span style="color:#F97583;--shiki-light:#D73A49">rem</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    font-size</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">1.25</span><span style="color:#F97583;--shiki-light:#D73A49">rem</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  &#x26; </span><span style="color:#85E89D;--shiki-light:#22863A">p</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    color</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">45</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    line-height</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">1.6</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@layer</span><span style="color:#E1E4E8;--shiki-light:#24292E"> components {</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  .card</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { </span><span style="color:#79B8FF;--shiki-light:#005CC5">container-type</span><span style="color:#E1E4E8;--shiki-light:#24292E">: inline-size; }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Notes:</strong> Input and output are byte-identical. Uses modern CSS: nesting (<code>&amp;</code>), custom properties (<code>--card-bg</code>), <code>@layer</code>. This is the &quot;zero risk&quot; example — existing CSS works unchanged.</p>
+<hr>
+<h2>Example 2: Design Token Import</h2>
+<p><strong>Caption:</strong> Your token file is just JSON. Import it like any JavaScript module.</p>
+<p><strong><code>palette.json</code>:</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-json"><span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">{</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  "sun"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    "morning"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#9ECBFF;--shiki-light:#032F62">"oklch(85% 0.12 85)"</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    "noon"</span><span style="color:#E1E4E8;--shiki-light:#24292E">:    </span><span style="color:#9ECBFF;--shiki-light:#032F62">"oklch(95% 0.08 95)"</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    "sunset"</span><span style="color:#E1E4E8;--shiki-light:#24292E">:  </span><span style="color:#9ECBFF;--shiki-light:#032F62">"oklch(65% 0.18 35)"</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    "nadir"</span><span style="color:#E1E4E8;--shiki-light:#24292E">:   </span><span style="color:#9ECBFF;--shiki-light:#032F62">"oklch(15% 0.05 270)"</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Input (<code>tokens.lass</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>import palette from './palette.json'</span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>:root {</span></span>
+<span class="line"><span>{{ Object.entries(palette.sun).map(([name, value]) => `  --sun-${name}: ${value};`).join('\n') }}</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p><strong>Output (<code>tokens.css</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-css"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">:root</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  --sun-morning</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">85</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.12</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 85</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  --sun-noon</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">95</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.08</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 95</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  --sun-sunset</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">65</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.18</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 35</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  --sun-nadir</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">15</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.05</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 270</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Notes:</strong> The <code>import</code> is real JavaScript — no plugin, no config, no custom syntax. The <code>{{ }}</code> expression runs at build time and inserts the result into the CSS. Story 9.3: show <code>.lass</code> on left, <code>.css</code> on right.</p>
+<hr>
+<h2>Example 3: Sass <code>@each</code> vs Lass <code>.map()</code></h2>
+<p><strong>Caption:</strong> No new loop syntax. You already know <code>.map()</code>.</p>
+<p><strong>Sass (for comparison — not compiled):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-scss"><span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">$sizes</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">4</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#79B8FF;--shiki-light:#005CC5">8</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#79B8FF;--shiki-light:#005CC5">16</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#79B8FF;--shiki-light:#005CC5">24</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#79B8FF;--shiki-light:#005CC5">32</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@each</span><span style="color:#FFAB70;--shiki-light:#E36209"> $size</span><span style="color:#F97583;--shiki-light:#D73A49"> in</span><span style="color:#FFAB70;--shiki-light:#E36209"> $sizes</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  .gap-</span><span style="color:#FFAB70;--shiki-light:#E36209">#{$size}</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { </span><span style="color:#79B8FF;--shiki-light:#005CC5">gap</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#FFAB70;--shiki-light:#E36209">#{$size}</span><span style="color:#E1E4E8;--shiki-light:#24292E">px; }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Input (<code>gap-utils.lass</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>const sizes = [4, 8, 16, 24, 32]</span></span>
+<span class="line"><span>--- generate gap utilities</span></span>
+<span class="line"><span>{{ sizes.map(s => @{</span></span>
+<span class="line"><span>.gap-${s} {</span></span>
+<span class="line"><span>  gap: ${s}px;</span></span>
+<span class="line"><span>}</span></span>
+<span class="line"><span>}) }}</span></span></code></pre>
+<p><strong>Output (<code>gap-utils.css</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-css"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.gap-4</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  gap</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">4</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.gap-8</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  gap</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">8</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.gap-16</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  gap</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">16</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.gap-24</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  gap</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">24</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.gap-32</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  gap</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">32</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Notes:</strong> This example shows a side-by-side paradigm comparison. The Sass side is displayed but NOT compiled — it's just for visual contrast. The Lass side is compiled and verified. Multi-line <code>@{ }</code> blocks naturally produce newline-separated output (arrays auto-join with <code>\n</code> when items contain newlines). <code>${}</code> is standard JS template literal interpolation (for class names). <code>{{ }}</code> is Lass's crossing point from JS into CSS. Story 9.3: show Sass on left, Lass on right, with CSS output below.</p>
+<hr>
+<h2>Example 4: <code>@(prop)</code> Lookup</h2>
+<p><strong>Caption:</strong> CSS knows its own values. Ask it.</p>
+<p><strong>Input (<code>button.lass</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>--- component with derived values</span></span>
+<span class="line"><span>.button {</span></span>
+<span class="line"><span>  border: 2px solid oklch(50% 0.2 250);</span></span>
+<span class="line"><span>  outline-offset: 4px;</span></span>
+<span class="line"><span>  outline: @(border);</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<p><strong>Output (<code>button.css</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-css"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.button</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  border</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">2</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#79B8FF;--shiki-light:#005CC5"> solid</span><span style="color:#79B8FF;--shiki-light:#005CC5"> oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">50</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.2</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 250</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  outline-offset</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">4</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  outline</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">2</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#79B8FF;--shiki-light:#005CC5"> solid</span><span style="color:#79B8FF;--shiki-light:#005CC5"> oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">50</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.2</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 250</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Notes:</strong> <code>@(border)</code> reads the previously declared <code>border</code> value at build time — no repetition, no variable. This is compile-time CSS value reuse, unique to Lass. The CSS-only alternative would require repeating <code>2px solid oklch(50% 0.2 250)</code> or introducing a custom property for a single-use value. Story 9.3: show <code>.lass</code> on left, <code>.css</code> on right.</p>
+<hr>
+<h2>Example 5: Tailwind + Lass Custom Variants</h2>
+<p><strong>Caption:</strong> Tailwind gives you utilities. Lass gives you the rest.</p>
+<p><strong>Input (<code>themes.lass</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>const themes = ["sunrise", "noon", "sunset", "midnight"]</span></span>
+<span class="line"><span>---</span></span>
+<span class="line"><span>@import "tailwindcss";</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>{{ themes.map(t => @{</span></span>
+<span class="line"><span>  @custom-variant theme-${t} {</span></span>
+<span class="line"><span>    &#x26;:where([data-theme="${t}"] *) {</span></span>
+<span class="line"><span>      @slot;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>  }</span></span>
+<span class="line"><span>}) }}</span></span></code></pre>
+<p><strong>Output (<code>themes.css</code>):</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-css"><span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@import</span><span style="color:#9ECBFF;--shiki-light:#032F62"> "tailwindcss"</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@custom-variant</span><span style="color:#E1E4E8;--shiki-light:#24292E"> theme-sunrise {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  &#x26;</span><span style="color:#B392F0;--shiki-light:#6F42C1">:where</span><span style="color:#E1E4E8;--shiki-light:#24292E">([</span><span style="color:#B392F0;--shiki-light:#6F42C1">data-theme</span><span style="color:#F97583;--shiki-light:#D73A49">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"sunrise"</span><span style="color:#E1E4E8;--shiki-light:#24292E">] </span><span style="color:#85E89D;--shiki-light:#22863A">*</span><span style="color:#E1E4E8;--shiki-light:#24292E">) {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    @</span><span style="color:#79B8FF;--shiki-light:#005CC5">slot</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@custom-variant</span><span style="color:#E1E4E8;--shiki-light:#24292E"> theme-noon {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  &#x26;</span><span style="color:#B392F0;--shiki-light:#6F42C1">:where</span><span style="color:#E1E4E8;--shiki-light:#24292E">([</span><span style="color:#B392F0;--shiki-light:#6F42C1">data-theme</span><span style="color:#F97583;--shiki-light:#D73A49">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"noon"</span><span style="color:#E1E4E8;--shiki-light:#24292E">] </span><span style="color:#85E89D;--shiki-light:#22863A">*</span><span style="color:#E1E4E8;--shiki-light:#24292E">) {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    @</span><span style="color:#79B8FF;--shiki-light:#005CC5">slot</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@custom-variant</span><span style="color:#E1E4E8;--shiki-light:#24292E"> theme-sunset {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  &#x26;</span><span style="color:#B392F0;--shiki-light:#6F42C1">:where</span><span style="color:#E1E4E8;--shiki-light:#24292E">([</span><span style="color:#B392F0;--shiki-light:#6F42C1">data-theme</span><span style="color:#F97583;--shiki-light:#D73A49">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"sunset"</span><span style="color:#E1E4E8;--shiki-light:#24292E">] </span><span style="color:#85E89D;--shiki-light:#22863A">*</span><span style="color:#E1E4E8;--shiki-light:#24292E">) {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    @</span><span style="color:#79B8FF;--shiki-light:#005CC5">slot</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@custom-variant</span><span style="color:#E1E4E8;--shiki-light:#24292E"> theme-midnight {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  &#x26;</span><span style="color:#B392F0;--shiki-light:#6F42C1">:where</span><span style="color:#E1E4E8;--shiki-light:#24292E">([</span><span style="color:#B392F0;--shiki-light:#6F42C1">data-theme</span><span style="color:#F97583;--shiki-light:#D73A49">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"midnight"</span><span style="color:#E1E4E8;--shiki-light:#24292E">] </span><span style="color:#85E89D;--shiki-light:#22863A">*</span><span style="color:#E1E4E8;--shiki-light:#24292E">) {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    @</span><span style="color:#79B8FF;--shiki-light:#005CC5">slot</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>HTML usage:</strong></p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-html"><span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;</span><span style="color:#85E89D;--shiki-light:#22863A">div</span><span style="color:#B392F0;--shiki-light:#6F42C1"> class</span><span style="color:#E1E4E8;--shiki-light:#24292E">=</span><span style="color:#9ECBFF;--shiki-light:#032F62">"theme-sunset:bg-orange-500 theme-midnight:text-white"</span><span style="color:#E1E4E8;--shiki-light:#24292E">></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  Adapts to the time of day</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;/</span><span style="color:#85E89D;--shiki-light:#22863A">div</span><span style="color:#E1E4E8;--shiki-light:#24292E">></span></span></code></pre>
+<p><strong>Notes:</strong> Tailwind's <code>@custom-variant</code> lets you define conditional variants. Lass lets you generate them from a list instead of writing each one by hand. The preamble is one line of JavaScript. The CSS zone uses <code>@{ }</code> to produce a CSS block per theme and <code>${}</code> for the theme name (JS template literal, since we're building selectors in JS-land). <code>@import</code>, <code>@custom-variant</code>, <code>@slot</code> are all CSS — they pass through untouched. Story 9.3: show <code>.lass</code> on left, <code>.css</code> on right, HTML snippet below.</p>
+
+  </main>
+  <script>
+  // Copy button — hero install command only
+  (function() {
+    var pre = document.querySelector('.language-bash');
+    if (!pre) return;
+    var wrap = pre.closest('pre');
+    if (!wrap) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function() {
+      navigator.clipboard.writeText(pre.textContent.trim());
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+    };
+    wrap.style.position = 'relative';
+    btn.style.position = 'absolute';
+    btn.style.top = '0.5rem';
+    btn.style.right = '0.5rem';
+    wrap.appendChild(btn);
+  })();
+  </script>
+</body>
+</html>
