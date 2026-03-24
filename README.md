@@ -23,6 +23,7 @@ Lass's answer: don't learn a new language. Use the one you already know.
 Real functions. Real imports. Real loops. JavaScript.
 
 ```lass
+---
 import tokens from './tokens.json'
 --- design token custom properties
 :root {
@@ -59,6 +60,7 @@ Lass passes that test. Any valid CSS in a `.lass` file compiles to identical CSS
 You don't need Lass to use Tailwind. But when Tailwind's vocabulary isn't enough — when your design system speaks in `morning`, `noon`, `sunset`, and `nadir` — Lass generates the second vocabulary from your own data, at build time, from a JSON file your designers own.
 
 ```lass
+---
 import palette from './brand/palette.json'
 
 const propertyMap = {
@@ -66,7 +68,6 @@ const propertyMap = {
   text:   color => `color: ${color};`,
   border: color => `border-color: ${color};`,
 }
-
 ---
 @import 'tailwindcss';
 
@@ -114,6 +115,10 @@ export default defineConfig({
   plugins: [lass()]
 })
 ```
+
+## Syntax Highlighting
+
+Code examples on this site use the Lass TextMate grammar for VS Code-quality syntax highlighting at build time. All highlighting is rendered server-side with zero client-side JavaScript.
 
 ## Links
 

@@ -3,6 +3,8 @@ import { join, relative, dirname } from 'node:path'
 import MarkdownIt from 'markdown-it'
 import Shiki from '@shikijs/markdown-it'
 import type { Plugin, Rollup } from 'vite'
+// Import Lass TextMate grammar from Story 10.1
+import lassGrammar from '../../../packages/vscode-lass/syntaxes/lass.tmLanguage.json' with { type: 'json' }
 
 /** Strip YAML frontmatter (--- ... ---) from markdown content */
 function stripFrontmatter(content: string): string {
@@ -33,10 +35,16 @@ export async function mdPages(options: MdPagesOptions): Promise<Plugin> {
   const shikiPlugin = await Shiki({
     themes: { dark: 'github-dark', light: 'github-light' },
     defaultColor: 'dark',
-    // lass has no TextMate grammar yet (Story 10.1) — render as plain text
-    langAlias: { lass: 'text' as never },
-    // Also handle scss since the examples include Sass comparison blocks
-    langs: ['javascript', 'typescript', 'css', 'html', 'bash', 'json', 'scss'],
+    // Load Lass TextMate grammar from Story 10.1 for build-time syntax highlighting
+    // Grammar location: packages/vscode-lass/syntaxes/lass.tmLanguage.json
+    // Provides VS Code-quality highlighting with zero client-side JavaScript
+    langs: [
+      {
+        ...lassGrammar,
+        name: 'lass',
+      },
+      'javascript', 'typescript', 'css', 'html', 'bash', 'json', 'scss'
+    ],
   })
 
   const md = new MarkdownIt({ html: true })

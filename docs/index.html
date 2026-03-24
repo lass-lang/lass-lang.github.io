@@ -25,11 +25,12 @@
 <p>CSS itself won't add loops. It's declarative — a bucket of properties, not a sequence of steps. That gap is permanent.</p>
 <p>Lass's answer: don't learn a new language. Use the one you already know.</p>
 <p>Real functions. Real imports. Real loops. JavaScript.</p>
-<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>import tokens from './tokens.json'</span></span>
-<span class="line"><span>--- design token custom properties</span></span>
-<span class="line"><span>:root {</span></span>
-<span class="line"><span>  {{ Object.entries(tokens.color).map(([k, v]) => @{ --color-{{ k }}: {{ v }}; }) }}</span></span>
-<span class="line"><span>}</span></span></code></pre>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> tokens </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> './tokens.json'</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">--- design token custom properties</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">:root</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  {{ Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">(tokens.color).</span><span style="color:#B392F0;--shiki-light:#6F42C1">map</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">k</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">v</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#E1E4E8;--shiki-light:#24292E"> @{ --color-{{ k }}: {{ v }}; }) }}</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
 <p>No <code>@mixin</code>. No <code>@include</code>. No new syntax to learn.</p>
 <h2>Six symbols bridge the gap</h2>
 <p>That's the whole surface area between JavaScript and CSS in Lass:</p>
@@ -83,22 +84,22 @@
 <p>Lass passes that test. Any valid CSS in a <code>.lass</code> file compiles to identical CSS. You never wait for Lass to catch up.</p>
 <h2>Tailwind gives you utilities. Lass gives you the rest.</h2>
 <p>You don't need Lass to use Tailwind. But when Tailwind's vocabulary isn't enough — when your design system speaks in <code>morning</code>, <code>noon</code>, <code>sunset</code>, and <code>nadir</code> — Lass generates the second vocabulary from your own data, at build time, from a JSON file your designers own.</p>
-<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span>import palette from './brand/palette.json'</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>const propertyMap = {</span></span>
-<span class="line"><span>  bg:     color => `background-color: ${color};`,</span></span>
-<span class="line"><span>  text:   color => `color: ${color};`,</span></span>
-<span class="line"><span>  border: color => `border-color: ${color};`,</span></span>
-<span class="line"><span>}</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>---</span></span>
-<span class="line"><span>@import 'tailwindcss';</span></span>
-<span class="line"><span></span></span>
-<span class="line"><span>{{ Object.entries(palette.sun).flatMap(([moment, color]) =></span></span>
-<span class="line"><span>  Object.entries(propertyMap).map(([prefix, decl]) => @{</span></span>
-<span class="line"><span>    .${prefix}-sun-${moment} { {{ decl(color) }} }</span></span>
-<span class="line"><span>  })</span></span>
-<span class="line"><span>) }}</span></span></code></pre>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> palette </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> './brand/palette.json'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#79B8FF;--shiki-light:#005CC5"> propertyMap</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  bg</span><span style="color:#E1E4E8;--shiki-light:#24292E">:     </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49"> =></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `background-color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  text</span><span style="color:#E1E4E8;--shiki-light:#24292E">:   </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49"> =></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  border</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49"> =></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `border-color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@import</span><span style="color:#9ECBFF;--shiki-light:#032F62"> 'tailwindcss'</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">{{ Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">(palette.sun).</span><span style="color:#B392F0;--shiki-light:#6F42C1">flatMap</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">moment</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">(propertyMap).</span><span style="color:#B392F0;--shiki-light:#6F42C1">map</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">prefix</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">decl</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#E1E4E8;--shiki-light:#24292E"> @{</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    .${</span><span style="color:#79B8FF;--shiki-light:#005CC5">prefix</span><span style="color:#E1E4E8;--shiki-light:#24292E">}-sun-${</span><span style="color:#79B8FF;--shiki-light:#005CC5">moment</span><span style="color:#E1E4E8;--shiki-light:#24292E">} { {{ </span><span style="color:#B392F0;--shiki-light:#6F42C1">decl</span><span style="color:#E1E4E8;--shiki-light:#24292E">(color) }} }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  })</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">) }}</span></span></code></pre>
 <blockquote>
 <p>Note: <code>@import 'tailwindcss'</code> is CSS — it belongs in the CSS zone (after <code>---</code>), and must appear first. That's a CSS spec requirement, not a Lass rule.</p>
 </blockquote>
@@ -153,6 +154,8 @@
 <span class="line"><span style="color:#F97583;--shiki-light:#D73A49">export</span><span style="color:#F97583;--shiki-light:#D73A49"> default</span><span style="color:#B392F0;--shiki-light:#6F42C1"> defineConfig</span><span style="color:#E1E4E8;--shiki-light:#24292E">({</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  plugins: [</span><span style="color:#B392F0;--shiki-light:#6F42C1">lass</span><span style="color:#E1E4E8;--shiki-light:#24292E">()]</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">})</span></span></code></pre>
+<h2>Syntax Highlighting</h2>
+<p>Code examples on this site use the Lass TextMate grammar for VS Code-quality syntax highlighting at build time. All highlighting is rendered server-side with zero client-side JavaScript.</p>
 <h2>Links</h2>
 <ul>
 <li><a href="examples/">More examples</a></li>

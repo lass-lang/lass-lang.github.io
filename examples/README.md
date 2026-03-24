@@ -84,6 +84,7 @@ Tests: `packages/lass-core/test/landing-examples.test.ts`
 **Input (`tokens.lass`):**
 
 ```lass
+---
 import palette from './palette.json'
 ---
 :root {
@@ -122,6 +123,7 @@ $sizes: 4, 8, 16, 24, 32;
 **Input (`gap-utils.lass`):**
 
 ```lass
+---
 const sizes = [4, 8, 16, 24, 32]
 --- generate gap utilities
 {{ sizes.map(s => @{
@@ -191,6 +193,7 @@ const sizes = [4, 8, 16, 24, 32]
 **Input (`themes.lass`):**
 
 ```lass
+---
 const themes = ["sunrise", "noon", "sunset", "midnight"]
 ---
 @import "tailwindcss";
