@@ -1,1 +1,1 @@
-pnpm build && git add _built-pages/ && git diff --cached --quiet || git commit -m "chore: rebuild site"
+pnpm build && git add docs/ && git diff --cached --quiet || git commit -m "chore: rebuild site"
