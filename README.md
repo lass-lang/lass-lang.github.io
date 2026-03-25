@@ -44,7 +44,7 @@ That's the whole surface area between TypeScript and CSS in Lass:
 
 | Symbol | Direction | What it does |
 |--------|-----------|--------------|
-| `---` | separator | Divides TypeScript preamble from CSS zone |
+| `---` | delimiter pair | Wraps the Script Preamble (opening/closing) |
 | `{{ expr }}` | TS → CSS | Evaluates any TypeScript expression, inserts result |
 | `$name` | TS → CSS | Text substitution from a `$`-prefixed variable |
 | `@(prop)` | CSS → TS | Reads the last-declared value of a CSS property |
