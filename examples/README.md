@@ -164,6 +164,7 @@ const sizes = [4, 8, 16, 24, 32]
 **Input (`button.lass`):**
 
 ```lass
+---
 --- component with derived values
 .button {
   border: 2px solid oklch(50% 0.2 250);

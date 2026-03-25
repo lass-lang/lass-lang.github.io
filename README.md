@@ -1,6 +1,6 @@
 # Lass
 
-> CSS + JavaScript. Nothing else.
+> CSS + TypeScript. Nothing else.
 
 ## CSS is already great
 
@@ -12,7 +12,7 @@ Lass doesn't replace any of that. It compiles away the moment you push. What's l
 
 > "A preprocessor that gets out of the way. Write CSS features the day they ship — Lass only touches what you ask it to."
 
-## When you need logic, use JS
+## When you need logic, use TypeScript (or JavaScript)
 
 Other preprocessors invented their own languages to fill the gap. Sass gave you `@mixin`, `@include`, `@each`, `@if`, `@function`. Less gave you `.mixin()`, `each()`, `when()`. New syntax. New rules. New things to remember.
 
@@ -20,14 +20,19 @@ CSS itself won't add loops. It's declarative — a bucket of properties, not a s
 
 Lass's answer: don't learn a new language. Use the one you already know.
 
-Real functions. Real imports. Real loops. JavaScript.
+Real functions. Real imports. Real loops. Real types. **TypeScript is the default** — it's the first-class citizen.
+
+**JavaScript works too** — it's syntactically valid TypeScript, so any JavaScript code runs as-is.
 
 ```lass
 ---
-import tokens from './tokens.json'
+interface Tokens {
+  color: Record<string, string>
+}
+import tokens from './tokens.json' with { type: 'json' }
 --- design token custom properties
 :root {
-  {{ Object.entries(tokens.color).map(([k, v]) => @{ --color-{{ k }}: {{ v }}; }) }}
+  {{ Object.entries((tokens as Tokens).color).map(([k, v]) => @{ --color-{{ k }}: {{ v }}; }) }}
 }
 ```
 
@@ -35,15 +40,15 @@ No `@mixin`. No `@include`. No new syntax to learn.
 
 ## Six symbols bridge the gap
 
-That's the whole surface area between JavaScript and CSS in Lass:
+That's the whole surface area between TypeScript and CSS in Lass:
 
 | Symbol | Direction | What it does |
 |--------|-----------|--------------|
-| `---` | separator | Divides JS preamble from CSS zone |
-| `{{ expr }}` | JS → CSS | Evaluates any JS expression, inserts result |
-| `$name` | JS → CSS | Text substitution from a `$`-prefixed variable |
-| `@(prop)` | CSS → JS | Reads the last-declared value of a CSS property |
-| `@{ css }` | CSS in JS | CSS string inside JS context (for loops, functions) |
+| `---` | separator | Divides TypeScript preamble from CSS zone |
+| `{{ expr }}` | TS → CSS | Evaluates any TypeScript expression, inserts result |
+| `$name` | TS → CSS | Text substitution from a `$`-prefixed variable |
+| `@(prop)` | CSS → TS | Reads the last-declared value of a CSS property |
+| `@{ css }` | CSS in TS | CSS string inside TypeScript context (for loops, functions) |
 | `//` | — | Single-line comment — stripped from output |
 
 Six symbols. No new control flow. No custom language.
@@ -61,17 +66,20 @@ You don't need Lass to use Tailwind. But when Tailwind's vocabulary isn't enough
 
 ```lass
 ---
-import palette from './brand/palette.json'
+interface Palette {
+  sun: Record<string, string>
+}
+import palette from './brand/palette.json' with { type: 'json' }
 
-const propertyMap = {
-  bg:     color => `background-color: ${color};`,
-  text:   color => `color: ${color};`,
-  border: color => `border-color: ${color};`,
+const propertyMap: Record<string, (color: string) => string> = {
+  bg:     (color) => `background-color: ${color};`,
+  text:   (color) => `color: ${color};`,
+  border: (color) => `border-color: ${color};`,
 }
 ---
 @import 'tailwindcss';
 
-{{ Object.entries(palette.sun).flatMap(([moment, color]) =>
+{{ Object.entries((palette as Palette).sun).flatMap(([moment, color]) =>
   Object.entries(propertyMap).map(([prefix, decl]) => @{
     .${prefix}-sun-${moment} { {{ decl(color) }} }
   })
@@ -93,10 +101,11 @@ Different tools. Different approaches. Same goal.
 
 |  | Sass | Less | Lass |
 |---|------|------|------|
-| Logic layer | Custom language (`@mixin`, `@if`, `@each`) | Custom language (`.mixin()`, `when()`) | JavaScript — the real thing |
-| Variables | `$var` (Sass syntax) | `@var` (Less syntax) | `const $var = value` (real JS) |
+| Logic layer | Custom language (`@mixin`, `@if`, `@each`) | Custom language (`.mixin()`, `when()`) | TypeScript — the real thing |
+| Variables | `$var` (Sass syntax) | `@var` (Less syntax) | `const $var = value` (real TS) |
 | Loops | `@each $item in $list` | `each(@list, ...)` | `{{ items.map(i => ...) }}` |
 | Imports | `@use 'tokens'` | `@import` | `import tokens from './tokens.json'` |
+| Type safety | — | — | **TypeScript-First** (optional types, full IntelliSense) |
 
 Maybe you don't need a preprocessor at all. Modern CSS is remarkable. But if you do need one — for token imports, for utility class generation, for anything that requires iteration — reach for the language you already know.
 

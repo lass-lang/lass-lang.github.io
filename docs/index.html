@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lass — CSS + JavaScript. Nothing else.</title>
-  <meta name="description" content="A CSS preprocessor that uses real JavaScript instead of inventing a new language. Compiles to static CSS at build time.">
+  <title>Lass — CSS + TypeScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real TypeScript instead of inventing a new language. JavaScript works too. Compiles to static CSS at build time.">
   <link rel="stylesheet" href="assets/index-EHLhZfkS.css">
 </head>
 <body>
   <main class="page">
     <h1>Lass</h1>
 <blockquote>
-<p>CSS + JavaScript. Nothing else.</p>
+<p>CSS + TypeScript. Nothing else.</p>
 </blockquote>
 <h2>CSS is already great</h2>
 <p>Modern CSS is remarkable. Use it.</p>
@@ -20,20 +20,24 @@
 <blockquote>
 <p>&quot;A preprocessor that gets out of the way. Write CSS features the day they ship — Lass only touches what you ask it to.&quot;</p>
 </blockquote>
-<h2>When you need logic, use JS</h2>
+<h2>When you need logic, use TypeScript (or JavaScript)</h2>
 <p>Other preprocessors invented their own languages to fill the gap. Sass gave you <code>@mixin</code>, <code>@include</code>, <code>@each</code>, <code>@if</code>, <code>@function</code>. Less gave you <code>.mixin()</code>, <code>each()</code>, <code>when()</code>. New syntax. New rules. New things to remember.</p>
 <p>CSS itself won't add loops. It's declarative — a bucket of properties, not a sequence of steps. That gap is permanent.</p>
 <p>Lass's answer: don't learn a new language. Use the one you already know.</p>
-<p>Real functions. Real imports. Real loops. JavaScript.</p>
+<p>Real functions. Real imports. Real loops. Real types. <strong>TypeScript is the default</strong> — it's the first-class citizen.</p>
+<p><strong>JavaScript works too</strong> — it's syntactically valid TypeScript, so any JavaScript code runs as-is.</p>
 <pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> tokens </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> './tokens.json'</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">interface</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Tokens</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  color</span><span style="color:#F97583;--shiki-light:#D73A49">:</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Record</span><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;</span><span style="color:#79B8FF;--shiki-light:#005CC5">string</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#79B8FF;--shiki-light:#005CC5">string</span><span style="color:#E1E4E8;--shiki-light:#24292E">></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> tokens </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> './tokens.json'</span><span style="color:#F97583;--shiki-light:#D73A49"> with</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { type: </span><span style="color:#9ECBFF;--shiki-light:#032F62">'json'</span><span style="color:#E1E4E8;--shiki-light:#24292E"> }</span></span>
 <span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">--- design token custom properties</span></span>
 <span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">:root</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
-<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  {{ Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">(tokens.color).</span><span style="color:#B392F0;--shiki-light:#6F42C1">map</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">k</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">v</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#E1E4E8;--shiki-light:#24292E"> @{ --color-{{ k }}: {{ v }}; }) }}</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  {{ Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">((tokens </span><span style="color:#F97583;--shiki-light:#D73A49">as</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Tokens</span><span style="color:#E1E4E8;--shiki-light:#24292E">).color).</span><span style="color:#B392F0;--shiki-light:#6F42C1">map</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">k</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">v</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#E1E4E8;--shiki-light:#24292E"> @{ --color-{{ k }}: {{ v }}; }) }}</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
 <p>No <code>@mixin</code>. No <code>@include</code>. No new syntax to learn.</p>
 <h2>Six symbols bridge the gap</h2>
-<p>That's the whole surface area between JavaScript and CSS in Lass:</p>
+<p>That's the whole surface area between TypeScript and CSS in Lass:</p>
 <table>
 <thead>
 <tr>
@@ -46,27 +50,27 @@
 <tr>
 <td><code>---</code></td>
 <td>separator</td>
-<td>Divides JS preamble from CSS zone</td>
+<td>Divides TypeScript preamble from CSS zone</td>
 </tr>
 <tr>
 <td><code>{{ expr }}</code></td>
-<td>JS → CSS</td>
-<td>Evaluates any JS expression, inserts result</td>
+<td>TS → CSS</td>
+<td>Evaluates any TypeScript expression, inserts result</td>
 </tr>
 <tr>
 <td><code>$name</code></td>
-<td>JS → CSS</td>
+<td>TS → CSS</td>
 <td>Text substitution from a <code>$</code>-prefixed variable</td>
 </tr>
 <tr>
 <td><code>@(prop)</code></td>
-<td>CSS → JS</td>
+<td>CSS → TS</td>
 <td>Reads the last-declared value of a CSS property</td>
 </tr>
 <tr>
 <td><code>@{ css }</code></td>
-<td>CSS in JS</td>
-<td>CSS string inside JS context (for loops, functions)</td>
+<td>CSS in TS</td>
+<td>CSS string inside TypeScript context (for loops, functions)</td>
 </tr>
 <tr>
 <td><code>//</code></td>
@@ -85,17 +89,20 @@
 <h2>Tailwind gives you utilities. Lass gives you the rest.</h2>
 <p>You don't need Lass to use Tailwind. But when Tailwind's vocabulary isn't enough — when your design system speaks in <code>morning</code>, <code>noon</code>, <code>sunset</code>, and <code>nadir</code> — Lass generates the second vocabulary from your own data, at build time, from a JSON file your designers own.</p>
 <pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
-<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> palette </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> './brand/palette.json'</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">interface</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Palette</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#FFAB70;--shiki-light:#E36209">  sun</span><span style="color:#F97583;--shiki-light:#D73A49">:</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Record</span><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;</span><span style="color:#79B8FF;--shiki-light:#005CC5">string</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#79B8FF;--shiki-light:#005CC5">string</span><span style="color:#E1E4E8;--shiki-light:#24292E">></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> palette </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> './brand/palette.json'</span><span style="color:#F97583;--shiki-light:#D73A49"> with</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { type: </span><span style="color:#9ECBFF;--shiki-light:#032F62">'json'</span><span style="color:#E1E4E8;--shiki-light:#24292E"> }</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#79B8FF;--shiki-light:#005CC5"> propertyMap</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
-<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  bg</span><span style="color:#E1E4E8;--shiki-light:#24292E">:     </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49"> =></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `background-color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
-<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  text</span><span style="color:#E1E4E8;--shiki-light:#24292E">:   </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49"> =></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
-<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  border</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49"> =></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `border-color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#79B8FF;--shiki-light:#005CC5"> propertyMap</span><span style="color:#F97583;--shiki-light:#D73A49">:</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Record</span><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;</span><span style="color:#79B8FF;--shiki-light:#005CC5">string</span><span style="color:#E1E4E8;--shiki-light:#24292E">, (</span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#F97583;--shiki-light:#D73A49">:</span><span style="color:#79B8FF;--shiki-light:#005CC5"> string</span><span style="color:#E1E4E8;--shiki-light:#24292E">) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#79B8FF;--shiki-light:#005CC5"> string</span><span style="color:#E1E4E8;--shiki-light:#24292E">> </span><span style="color:#F97583;--shiki-light:#D73A49">=</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  bg</span><span style="color:#E1E4E8;--shiki-light:#24292E">:     (</span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#E1E4E8;--shiki-light:#24292E">) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `background-color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  text</span><span style="color:#E1E4E8;--shiki-light:#24292E">:   (</span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#E1E4E8;--shiki-light:#24292E">) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  border</span><span style="color:#E1E4E8;--shiki-light:#24292E">: (</span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#E1E4E8;--shiki-light:#24292E">) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#9ECBFF;--shiki-light:#032F62"> `border-color: ${</span><span style="color:#E1E4E8;--shiki-light:#24292E">color</span><span style="color:#9ECBFF;--shiki-light:#032F62">};`</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span>
 <span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
 <span class="line"><span style="color:#F97583;--shiki-light:#D73A49">@import</span><span style="color:#9ECBFF;--shiki-light:#032F62"> 'tailwindcss'</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
 <span class="line"></span>
-<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">{{ Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">(palette.sun).</span><span style="color:#B392F0;--shiki-light:#6F42C1">flatMap</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">moment</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">{{ Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">((palette </span><span style="color:#F97583;--shiki-light:#D73A49">as</span><span style="color:#B392F0;--shiki-light:#6F42C1"> Palette</span><span style="color:#E1E4E8;--shiki-light:#24292E">).sun).</span><span style="color:#B392F0;--shiki-light:#6F42C1">flatMap</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">moment</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">color</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  Object.</span><span style="color:#B392F0;--shiki-light:#6F42C1">entries</span><span style="color:#E1E4E8;--shiki-light:#24292E">(propertyMap).</span><span style="color:#B392F0;--shiki-light:#6F42C1">map</span><span style="color:#E1E4E8;--shiki-light:#24292E">(([</span><span style="color:#FFAB70;--shiki-light:#E36209">prefix</span><span style="color:#E1E4E8;--shiki-light:#24292E">, </span><span style="color:#FFAB70;--shiki-light:#E36209">decl</span><span style="color:#E1E4E8;--shiki-light:#24292E">]) </span><span style="color:#F97583;--shiki-light:#D73A49">=></span><span style="color:#E1E4E8;--shiki-light:#24292E"> @{</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    .${</span><span style="color:#79B8FF;--shiki-light:#005CC5">prefix</span><span style="color:#E1E4E8;--shiki-light:#24292E">}-sun-${</span><span style="color:#79B8FF;--shiki-light:#005CC5">moment</span><span style="color:#E1E4E8;--shiki-light:#24292E">} { {{ </span><span style="color:#B392F0;--shiki-light:#6F42C1">decl</span><span style="color:#E1E4E8;--shiki-light:#24292E">(color) }} }</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  })</span></span>
@@ -122,13 +129,13 @@
 <td>Logic layer</td>
 <td>Custom language (<code>@mixin</code>, <code>@if</code>, <code>@each</code>)</td>
 <td>Custom language (<code>.mixin()</code>, <code>when()</code>)</td>
-<td>JavaScript — the real thing</td>
+<td>TypeScript — the real thing</td>
 </tr>
 <tr>
 <td>Variables</td>
 <td><code>$var</code> (Sass syntax)</td>
 <td><code>@var</code> (Less syntax)</td>
-<td><code>const $var = value</code> (real JS)</td>
+<td><code>const $var = value</code> (real TS)</td>
 </tr>
 <tr>
 <td>Loops</td>
@@ -141,6 +148,12 @@
 <td><code>@use 'tokens'</code></td>
 <td><code>@import</code></td>
 <td><code>import tokens from './tokens.json'</code></td>
+</tr>
+<tr>
+<td>Type safety</td>
+<td>—</td>
+<td>—</td>
+<td><strong>TypeScript-First</strong> (optional types, full IntelliSense)</td>
 </tr>
 </tbody>
 </table>

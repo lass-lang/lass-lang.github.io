@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lass — CSS + JavaScript. Nothing else.</title>
-  <meta name="description" content="A CSS preprocessor that uses real JavaScript instead of inventing a new language. Compiles to static CSS at build time.">
+  <title>Lass — CSS + TypeScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real TypeScript instead of inventing a new language. JavaScript works too. Compiles to static CSS at build time.">
   <link rel="stylesheet" href="../assets/index-EHLhZfkS.css">
 </head>
 <body>
@@ -124,11 +124,12 @@ Tests: <code>packages/lass-core/test/landing-examples.test.ts</code></p>
 <h2>Example 4: <code>@(prop)</code> Lookup</h2>
 <p><strong>Caption:</strong> CSS knows its own values. Ask it.</p>
 <p><strong>Input (<code>button.lass</code>):</strong></p>
-<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">--- component with derived values</span></span>
-<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">.button {</span></span>
-<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  border</span><span style="color:#E1E4E8;--shiki-light:#24292E">: 2px solid </span><span style="color:#B392F0;--shiki-light:#6F42C1">oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">50</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.2</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 250</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
-<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  outline</span><span style="color:#F97583;--shiki-light:#D73A49">-</span><span style="color:#B392F0;--shiki-light:#6F42C1">offset</span><span style="color:#E1E4E8;--shiki-light:#24292E">: 4px;</span></span>
-<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">  outline</span><span style="color:#E1E4E8;--shiki-light:#24292E">: @(border);</span></span>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-lass"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">---</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">--- component with derived values</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.button</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  border</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">2</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#79B8FF;--shiki-light:#005CC5"> solid</span><span style="color:#79B8FF;--shiki-light:#005CC5"> oklch</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#79B8FF;--shiki-light:#005CC5">50</span><span style="color:#F97583;--shiki-light:#D73A49">%</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 0.2</span><span style="color:#79B8FF;--shiki-light:#005CC5"> 250</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  outline-offset</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">4</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">;</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  outline</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">@(border</span><span style="color:#E1E4E8;--shiki-light:#24292E">);</span></span>
 <span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
 <p><strong>Output (<code>button.css</code>):</strong></p>
 <pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-css"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.button</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
