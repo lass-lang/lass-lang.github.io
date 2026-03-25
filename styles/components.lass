@@ -44,17 +44,20 @@ pre.shiki {
 
 /*
  * WCAG AA comment color overrides (minimum 4.5:1 contrast ratio)
- * github-dark comment #6A737D on #24292e = 3.05:1 (fails AA)
- * github-light comment #6A737D on #ffffff = 4.82:1 (passes but barely)
+ * Shiki's github-dark/light themes use #6A737D for comments, which fails
+ * or barely passes WCAG AA on typical code block backgrounds.
  *
- * Replacements:
+ * Replacements (verified against Shiki theme backgrounds #24292e / #fff):
  * Dark:  #57ab5a on #24292e = 5.15:1 (green, AA compliant)
  * Light: #1a7f37 on #ffffff = 5.08:1 (dark green, AA compliant)
  *
  * Targets: comment scopes (comment.line.separator.lass, comment.line.double-slash)
  * These are the --- delimiter lines and // line comments
+ *
+ * Note: [style*= i] flag makes this case-insensitive for resilience
+ * against Shiki output format changes (uppercase vs lowercase hex).
  */
-pre.shiki span[style*="6A737D"] {
+pre.shiki span[style*="6A737D" i] {
   color: #57ab5a !important;
   --shiki-light: #1a7f37;
 }
