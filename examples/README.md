@@ -103,7 +103,7 @@ import palette from './palette.json'
 }
 ```
 
-**Notes:** The `import` is real JavaScript — no plugin, no config, no custom syntax. The `{{ }}` expression runs at build time and inserts the result into the CSS. Story 9.3: show `.lass` on left, `.css` on right.
+**Notes:** The `import` is real JavaScript — no plugin, no config, no custom syntax. The `{{ }}` expression runs at build time and inserts the result into the CSS.
 
 ---
 
@@ -153,7 +153,7 @@ const sizes = [4, 8, 16, 24, 32]
 }
 ```
 
-**Notes:** This example shows a side-by-side paradigm comparison. The Sass side is displayed but NOT compiled — it's just for visual contrast. The Lass side is compiled and verified. Multi-line `@{ }` blocks naturally produce newline-separated output (arrays auto-join with `\n` when items contain newlines). `${}` is standard JS template literal interpolation (for class names). `{{ }}` is Lass's crossing point from JS into CSS. Story 9.3: show Sass on left, Lass on right, with CSS output below.
+**Notes:** This example shows a side-by-side paradigm comparison. The Sass side is displayed but NOT compiled — it's just for visual contrast. The Lass side is compiled and verified. Multi-line `@{ }` blocks naturally produce newline-separated output (arrays auto-join with `\n` when items contain newlines). `${}` is standard JS template literal interpolation (for class names). `{{ }}` is Lass's crossing point from JS into CSS.
 
 ---
 
@@ -183,7 +183,7 @@ const sizes = [4, 8, 16, 24, 32]
 }
 ```
 
-**Notes:** `@(border)` reads the previously declared `border` value at build time — no repetition, no variable. This is compile-time CSS value reuse, unique to Lass. The CSS-only alternative would require repeating `2px solid oklch(50% 0.2 250)` or introducing a custom property for a single-use value. Story 9.3: show `.lass` on left, `.css` on right.
+**Notes:** `@(border)` reads the previously declared `border` value at build time — no repetition, no variable. This is compile-time CSS value reuse, unique to Lass. The CSS-only alternative would require repeating `2px solid oklch(50% 0.2 250)` or introducing a custom property for a single-use value.
 
 ---
 
@@ -243,4 +243,4 @@ const themes = ["sunrise", "noon", "sunset", "midnight"]
 </div>
 ```
 
-**Notes:** Tailwind's `@custom-variant` lets you define conditional variants. Lass lets you generate them from a list instead of writing each one by hand. The preamble is one line of JavaScript. The CSS zone uses `@{ }` to produce a CSS block per theme and `${}` for the theme name (JS template literal, since we're building selectors in JS-land). `@import`, `@custom-variant`, `@slot` are all CSS — they pass through untouched. Story 9.3: show `.lass` on left, `.css` on right, HTML snippet below.
+**Notes:** Tailwind's `@custom-variant` lets you define conditional variants. Lass lets you generate them from a list instead of writing each one by hand. The preamble is one line of JavaScript. The CSS zone uses `@{ }` to produce a CSS block per theme and `${}` for the theme name (JS template literal, since we're building selectors in JS-land). `@import`, `@custom-variant`, `@slot` are all CSS — they pass through untouched.
