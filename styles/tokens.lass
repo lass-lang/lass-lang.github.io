@@ -10,14 +10,15 @@ import palette from '../palette.json'
     --sun-{{ name }}: {{ value }};
   }) }}
 
-  /* Semantic tokens — plain CSS custom properties */
+  /* Semantic tokens — light mode (default) */
   --color-bg: oklch(99% 0.005 95);
   --color-text: oklch(20% 0.02 270);
   --color-text-muted: oklch(45% 0.02 270);
   --color-accent: var(--sun-sunset);
   --color-surface: oklch(97% 0.01 95);
   --color-border: oklch(88% 0.02 95);
-  --color-code-bg: oklch(16% 0.02 270);
+  --color-code-bg: oklch(98% 0.005 95);
+  --color-code-border: oklch(88% 0.02 95);
 
   /* Spacing scale */
   --space-xs: 0.25rem;
@@ -39,4 +40,18 @@ import palette from '../palette.json'
   /* Layout */
   --content-width: 72rem;
   --content-padding: var(--space-lg);
+}
+
+/* Dark mode — override semantic tokens for dark backgrounds */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: oklch(16% 0.02 270);
+    --color-text: oklch(90% 0.01 95);
+    --color-text-muted: oklch(65% 0.02 270);
+    --color-accent: var(--sun-morning);
+    --color-surface: oklch(20% 0.02 270);
+    --color-border: oklch(30% 0.02 270);
+    --color-code-bg: oklch(18% 0.02 270);
+    --color-code-border: oklch(28% 0.02 270);
+  }
 }

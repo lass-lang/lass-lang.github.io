@@ -5,14 +5,15 @@
 :root {
   --sun-morning: oklch(85% 0.12 85); --sun-noon: oklch(95% 0.08 95); --sun-sunset: oklch(65% 0.18 35); --sun-nadir: oklch(15% 0.05 270);
 
-  /* Semantic tokens — plain CSS custom properties */
+  /* Semantic tokens — light mode (default) */
   --color-bg: oklch(99% 0.005 95);
   --color-text: oklch(20% 0.02 270);
   --color-text-muted: oklch(45% 0.02 270);
   --color-accent: var(--sun-sunset);
   --color-surface: oklch(97% 0.01 95);
   --color-border: oklch(88% 0.02 95);
-  --color-code-bg: oklch(16% 0.02 270);
+  --color-code-bg: oklch(98% 0.005 95);
+  --color-code-border: oklch(88% 0.02 95);
 
   /* Spacing scale */
   --space-xs: 0.25rem;
@@ -34,6 +35,20 @@
   /* Layout */
   --content-width: 72rem;
   --content-padding: var(--space-lg);
+}
+
+/* Dark mode — override semantic tokens for dark backgrounds */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: oklch(16% 0.02 270);
+    --color-text: oklch(90% 0.01 95);
+    --color-text-muted: oklch(65% 0.02 270);
+    --color-accent: var(--sun-morning);
+    --color-surface: oklch(20% 0.02 270);
+    --color-border: oklch(30% 0.02 270);
+    --color-code-bg: oklch(18% 0.02 270);
+    --color-code-border: oklch(28% 0.02 270);
+  }
 }
 /* Reset + base typography — plain CSS, no Lass features needed */
 
@@ -203,15 +218,39 @@ img {
   margin-inline: auto;
 }
 
-/* Code blocks — Shiki-rendered */
+/* Code blocks — Shiki-rendered with dual-theme support */
 pre.shiki {
-  background: var(--color-code-bg);
+  background-color: var(--color-code-bg) !important;
   padding: var(--space-md) var(--space-lg);
   font-size: var(--font-size-sm);
   line-height: 1.7;
-  border: 1px solid oklch(25% 0.02 270);
+  border: 1px solid var(--color-code-border);
   outline-offset: 2px;
-  outline: 1px solid oklch(25% 0.02 270);
+  outline: 1px solid var(--color-code-border);
+}
+
+/* Shiki dual-theme: light mode activates --shiki-light CSS custom properties */
+@media (prefers-color-scheme: light) {
+  pre.shiki span {
+    color: var(--shiki-light) !important;
+  }
+}
+
+/*
+ * WCAG AA comment color overrides (minimum 4.5:1 contrast ratio)
+ * github-dark comment #6A737D on #24292e = 3.05:1 (fails AA)
+ * github-light comment #6A737D on #ffffff = 4.82:1 (passes but barely)
+ *
+ * Replacements:
+ * Dark:  #57ab5a on #24292e = 5.15:1 (green, AA compliant)
+ * Light: #1a7f37 on #ffffff = 5.08:1 (dark green, AA compliant)
+ *
+ * Targets: comment scopes (comment.line.separator.lass, comment.line.double-slash)
+ * These are the --- delimiter lines and // line comments
+ */
+pre.shiki span[style*="6A737D"] {
+  color: #57ab5a !important;
+  --shiki-light: #1a7f37;
 }
 
 /* Install section */
