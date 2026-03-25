@@ -1,4 +1,4 @@
-# Landing Page Code Examples
+# Code Examples
 
 Five verified examples for the lass-lang.dev landing page.
 Every example has been transpiled and executed through `@lass-lang/core`.
