@@ -121,6 +121,18 @@ pre.shiki span[style*="6A737D" i] {
   color: var(--color-text);
 }
 
+/* Language label for code blocks */
+.code-lang {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  opacity: 0.6;
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Spacing scale utilities — generated from data */
 {{ [1, 2, 4, 8].map(n => @{
 .mt-{{ n }} { margin-block-start: calc(var(--space-xs) * {{ n }}); }

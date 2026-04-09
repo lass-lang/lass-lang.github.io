@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lass — CSS + TypeScript. Nothing else.</title>
   <meta name="description" content="A CSS preprocessor that uses real TypeScript instead of inventing a new language. JavaScript works too. Compiles to static CSS at build time.">
-  <link rel="stylesheet" href="../assets/index-BpLxNsUH.css">
+  <link rel="stylesheet" href="../assets/index-Gi6tZGNC.css">
 </head>
 <body>
   <nav class="site-nav">
@@ -179,6 +179,21 @@
     btn.style.top = '0.5rem';
     btn.style.right = '0.5rem';
     wrap.appendChild(btn);
+  })();
+  // Language label for code blocks
+  (function() {
+    var langNames = { lass: 'Lass', css: 'CSS', html: 'HTML', js: 'JavaScript', javascript: 'JavaScript', ts: 'TypeScript', typescript: 'TypeScript', bash: 'Bash', json: 'JSON', scss: 'SCSS', toml: 'TOML', yaml: 'YAML', markdown: 'Markdown' };
+    document.querySelectorAll('pre.shiki').forEach(function(pre) {
+      var code = pre.querySelector('code');
+      if (!code) return;
+      var match = code.className.match(/language-(\w+)/);
+      if (!match) return;
+      var label = document.createElement('span');
+      label.className = 'code-lang';
+      label.textContent = langNames[match[1]] || match[1];
+      pre.style.position = 'relative';
+      pre.appendChild(label);
+    });
   })();
   </script>
 </body>
