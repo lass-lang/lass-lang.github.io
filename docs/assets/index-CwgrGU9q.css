@@ -59,9 +59,7 @@ pre.shiki {
 }
 
 /* Spacing scale utilities — generated from data */
-{{ [1, 2, 4, 8].map(n => @{
-.mt-{{ n }} { margin-block-start: calc(var(--space-xs) * {{ n }}); }
-}) }}
+.mt-1 { margin-block-start: calc(var(--space-xs) * 1); } .mt-2 { margin-block-start: calc(var(--space-xs) * 2); } .mt-4 { margin-block-start: calc(var(--space-xs) * 4); } .mt-8 { margin-block-start: calc(var(--space-xs) * 8); }
 
 /* Links section */
 .page > h2:last-of-type ~ ul {
