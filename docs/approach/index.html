@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lass — CSS + TypeScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real TypeScript instead of inventing a new language. JavaScript works too. Compiles to static CSS at build time.">
+  <link rel="stylesheet" href="../assets/index-BpLxNsUH.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../">Lass</a>
+    <a href="../getting-started/">Get Started</a>
+    <a href="../ecosystem/">Ecosystem</a>
+    <a href="../tooling/">Tooling</a>
+    <a href="../approach/">Approach</a>
+    <a href="../examples/">Examples</a>
+    <a href="../llms.txt">llms.txt</a>
+  </nav>
+  <main class="page">
+    <h1>Development Approach</h1>
+<blockquote>
+<p>Documentation first. Tests from docs. Implementation from tests.</p>
+</blockquote>
+<p>Lass follows a documentation-driven development methodology where the language specification, test suite, and human-readable documentation are the same artifact.</p>
+<h2>The Axiom Model</h2>
+<p>An <strong>axiom</strong> is a Markdown file that defines one language feature as a set of testable input/output pairs. Each axiom is simultaneously:</p>
+<ol>
+<li><strong>Specification</strong> — the authoritative definition of what the feature does</li>
+<li><strong>Test suite</strong> — a parser extracts test cases and runs them automatically</li>
+<li><strong>Documentation</strong> — the same file renders as readable docs on the documentation site</li>
+</ol>
+<p>There are no separate spec documents, no hand-written test fixtures, no documentation that can drift from the implementation.</p>
+<h3>What an axiom looks like</h3>
+<p>An axiom file is standard Markdown with YAML frontmatter and <code>&lt;test-case&gt;</code> elements:</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-markdown"><span class="line"><span style="color:#79B8FF;--shiki-dark-font-weight:bold;--shiki-light:#005CC5;--shiki-light-font-weight:bold">---</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">feature: expression-interpolation</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">fr: FR-003</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">phase: MVP</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">description: "{{ expr }} evaluates JS and inserts result"</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">tags: [syntax, expressions]</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-dark-font-weight:bold;--shiki-light:#005CC5;--shiki-light-font-weight:bold">---</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;--shiki-dark-font-weight:bold;--shiki-light:#005CC5;--shiki-light-font-weight:bold"># Expression Interpolation</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">The </span><span style="color:#79B8FF;--shiki-light:#005CC5">`{{ }}`</span><span style="color:#E1E4E8;--shiki-light:#24292E"> syntax evaluates a JavaScript expression at build time</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">and inserts the result into the CSS output.</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;test-case type="valid"></span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">```lass</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">---</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">const size = 16</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">---</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">.box { padding: {{ size }}px; }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">```</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">```css</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">.box</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { </span><span style="color:#79B8FF;--shiki-light:#005CC5">padding</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#79B8FF;--shiki-light:#005CC5">16</span><span style="color:#F97583;--shiki-light:#D73A49">px</span><span style="color:#E1E4E8;--shiki-light:#24292E">; }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">```</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">&#x3C;/test-case></span></span></code></pre>
+<p>The prose explains the feature. The <code>&lt;test-case&gt;</code> blocks prove it works.</p>
+<h3>Test case types</h3>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type=&quot;valid&quot;</code></td>
+<td>Lass input compiles to the expected CSS output</td>
+</tr>
+<tr>
+<td><code>type=&quot;invalid&quot;</code></td>
+<td>Lass input throws an error containing the expected message</td>
+</tr>
+<tr>
+<td><code>skip</code> attribute</td>
+<td>Skipped — requires external mocks (e.g., import resolution)</td>
+</tr>
+</tbody>
+</table>
+<h3>File naming</h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>feature.common.md</code></td>
+<td>Main documentation + primary test cases</td>
+</tr>
+<tr>
+<td><code>feature.extra-cases.md</code></td>
+<td>Edge cases, regressions, boundary conditions</td>
+</tr>
+</tbody>
+</table>
+<h2>From Docs to Tests</h2>
+<p>The <code>@lass-lang/docs</code> package contains a test extractor that parses axiom files and generates vitest tests dynamically:</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-text"><span class="line"><span>Axiom Markdown</span></span>
+<span class="line"><span>    -> extractTestCasesFromMD()</span></span>
+<span class="line"><span>    -> TestCase[]</span></span>
+<span class="line"><span>    -> transpile(input)</span></span>
+<span class="line"><span>    -> executeTranspiledCode(code)</span></span>
+<span class="line"><span>    -> compare output to expected CSS</span></span></code></pre>
+<p>Two test runners consume axioms:</p>
+<ul>
+<li><strong><code>lass-core</code> axiom tests</strong> — Exercises the core transpiler against all axiom <code>&lt;test-case&gt;</code> blocks. Catches any behavioral regression.</li>
+<li><strong><code>lass-docs</code> docs tests</strong> — Exercises documentation examples (getting-started, syntax reference). Ensures every code example on the docs site is correct.</li>
+</ul>
+<p>No test is written by hand unless it tests implementation internals that don't belong in the spec.</p>
+<h2>From Tests to Implementation</h2>
+<p>The development cycle:</p>
+<ol>
+<li><strong>Write the axiom first</strong> — Define what the feature should do with prose and test cases</li>
+<li><strong>Watch tests fail</strong> — Run the test suite; new axiom tests fail because the feature doesn't exist yet</li>
+<li><strong>Implement</strong> — Write the code in <code>@lass-lang/core</code> until all axiom tests pass</li>
+<li><strong>Add unit tests</strong> — For implementation-specific edge cases not covered by axioms (scanner internals, error messages, etc.)</li>
+<li><strong>Ship</strong> — The axiom is now the documentation, the test, and the spec</li>
+</ol>
+<p>This is similar to TDD, but the &quot;tests&quot; are also the documentation and the language specification. There's only one source of truth.</p>
+<h2>Coverage</h2>
+<p>The axiom-driven approach produces comprehensive coverage with minimal manual test writing:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Tests</th>
+<th>Pass</th>
+<th>Skip</th>
+<th>Coverage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lass-core</td>
+<td>553</td>
+<td>516</td>
+<td>37</td>
+<td>100% lines</td>
+</tr>
+<tr>
+<td>lass-cli</td>
+<td>73</td>
+<td>73</td>
+<td>0</td>
+<td>100% lines</td>
+</tr>
+<tr>
+<td>lass-plugin-utils</td>
+<td>20</td>
+<td>20</td>
+<td>0</td>
+<td>100% lines</td>
+</tr>
+<tr>
+<td>vite-plugin-lass</td>
+<td>54</td>
+<td>54</td>
+<td>0</td>
+<td>100% lines</td>
+</tr>
+<tr>
+<td>bun-plugin-lass</td>
+<td>24</td>
+<td>24</td>
+<td>0</td>
+<td>97.7% lines</td>
+</tr>
+<tr>
+<td>lass-docs</td>
+<td>309</td>
+<td>272</td>
+<td>37</td>
+<td>98.7% lines</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>1033</strong></td>
+<td><strong>959</strong></td>
+<td><strong>74</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Skipped tests require bundler-level import resolution that can't run in a pure transpiler test.</p>
+<h2>Why This Works</h2>
+<p><strong>No drift.</strong> The spec, the tests, and the docs are one file. Change the behavior? Update the axiom. The tests update themselves. The docs update themselves.</p>
+<p><strong>Refactor fearlessly.</strong> 1033 tests — most generated from documentation — catch regressions before they ship.</p>
+<p><strong>AI-friendly.</strong> The <code>llms.txt</code> file is generated from axiom content, giving language models a dense, accurate reference. The axioms themselves serve as few-shot examples for code generation.</p>
+<p><strong>Contributor-friendly.</strong> Want to add a feature? Write the axiom first. Describe what it does in plain English. Add input/output examples. The test infrastructure does the rest.</p>
+<h2>Documentation Site</h2>
+<p>The full axiom-driven documentation — including the complete syntax reference, getting-started guide, and all test cases — will be available at the dedicated documentation site (coming soon, powered by <code>@lass-lang/docs</code>).</p>
+<h2>Links</h2>
+<ul>
+<li><a href="../">Home</a></li>
+<li><a href="../getting-started/">Getting Started</a></li>
+<li><a href="../ecosystem/">Ecosystem</a> — Vite, Bun, Webpack plugins</li>
+<li><a href="../tooling/">Tooling</a> — VS Code, syntax highlighting</li>
+<li><a href="https://github.com/lass-lang">GitHub</a></li>
+</ul>
+
+  </main>
+  <script>
+  // Copy button — hero install command only
+  (function() {
+    var pre = document.querySelector('.language-bash');
+    if (!pre) return;
+    var wrap = pre.closest('pre');
+    if (!wrap) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function() {
+      navigator.clipboard.writeText(pre.textContent.trim());
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+    };
+    wrap.style.position = 'relative';
+    btn.style.position = 'absolute';
+    btn.style.top = '0.5rem';
+    btn.style.right = '0.5rem';
+    wrap.appendChild(btn);
+  })();
+  </script>
+</body>
+</html>

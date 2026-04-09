@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lass — CSS + TypeScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real TypeScript instead of inventing a new language. JavaScript works too. Compiles to static CSS at build time.">
+  <link rel="stylesheet" href="../assets/index-BpLxNsUH.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../">Lass</a>
+    <a href="../getting-started/">Get Started</a>
+    <a href="../ecosystem/">Ecosystem</a>
+    <a href="../tooling/">Tooling</a>
+    <a href="../approach/">Approach</a>
+    <a href="../examples/">Examples</a>
+    <a href="../llms.txt">llms.txt</a>
+  </nav>
+  <main class="page">
+    <h1>Tooling</h1>
+<blockquote>
+<p>Editor support. Syntax highlighting. Language intelligence.</p>
+</blockquote>
+<p>Lass ships with first-class editor tooling so you get the same developer experience you expect from CSS and TypeScript — highlighting, auto-complete, bracket matching — in <code>.lass</code> files.</p>
+<h2>VS Code Extension</h2>
+<p><strong>Lass Language Support</strong> — Official VS Code extension.</p>
+<p>Install from the VS Code Marketplace:</p>
+<ol>
+<li>Open Extensions (Cmd+Shift+X / Ctrl+Shift+X)</li>
+<li>Search for <strong>&quot;Lass Language Support&quot;</strong></li>
+<li>Click <strong>Install</strong></li>
+</ol>
+<p>Or from the command line:</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">code</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --install-extension</span><span style="color:#9ECBFF;--shiki-light:#032F62"> lass-lang.vscode-lass</span></span></code></pre>
+<h3>What you get</h3>
+<ul>
+<li><strong>Syntax highlighting</strong> — Full TextMate grammar with proper two-zone highlighting. The TypeScript preamble (above <code>---</code>) is highlighted as TypeScript. The CSS zone (below <code>---</code>) is highlighted as CSS. Lass symbols (<code>{{ }}</code>, <code>@{ }</code>, <code>@( )</code>, <code>$name</code>) are highlighted as embedded constructs.</li>
+<li><strong>Smart editing</strong> — Auto-closing pairs for <code>{{ }}</code>, <code>@{ }</code>, and <code>@( )</code>. Type the opening symbol and the closing one appears automatically.</li>
+<li><strong>Comment toggling</strong> — Cmd+/ toggles <code>//</code> line comments. Shift+Alt+A toggles <code>/* */</code> block comments.</li>
+<li><strong>Bracket matching</strong> — Intelligent matching across CSS braces, JS brackets, and Lass symbols.</li>
+<li><strong>Language Server</strong> — Volar-based Language Server Protocol implementation providing IntelliSense for the TypeScript preamble. Powered by <code>@lass-lang/language-server</code>.</li>
+</ul>
+<h3>Supported symbols</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Purpose</th>
+<th>Auto-close</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>---</code></td>
+<td>Zone separator (preamble / CSS)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>$name</code></td>
+<td>Variable substitution</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>{{ expr }}</code></td>
+<td>TypeScript expression interpolation</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>@{ css }</code></td>
+<td>Style block</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>@(prop)</code></td>
+<td>Property lookup accessor</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>//</code></td>
+<td>Single-line comment (stripped from output)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/lass-lang/vscode-lass-languageservice">Extension on GitHub</a></p>
+<hr>
+<h2>TextMate Grammar</h2>
+<p><strong><code>@lass-lang/lass-tmlanguage</code></strong> — The canonical grammar definition.</p>
+<p>The TextMate grammar is the single source of truth for Lass syntax highlighting. It's used by:</p>
+<ul>
+<li><strong>VS Code</strong> — via the Lass Language Support extension</li>
+<li><strong>Shiki</strong> — for server-side highlighting (used by this website)</li>
+<li><strong>Any TextMate-compatible editor</strong> — Sublime Text, Atom, TextMate, etc.</li>
+<li><strong>Documentation tools</strong> — GitHub, GitLab, and other Markdown renderers that support custom grammars</li>
+</ul>
+<h3>Usage with Shiki</h3>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { createHighlighter } </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> 'shiki'</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> lassGrammar </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> '@lass-lang/lass-tmlanguage'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#79B8FF;--shiki-light:#005CC5"> highlighter</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#F97583;--shiki-light:#D73A49"> await</span><span style="color:#B392F0;--shiki-light:#6F42C1"> createHighlighter</span><span style="color:#E1E4E8;--shiki-light:#24292E">({</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  themes: [</span><span style="color:#9ECBFF;--shiki-light:#032F62">'github-dark'</span><span style="color:#E1E4E8;--shiki-light:#24292E">],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  langs: [{ </span><span style="color:#F97583;--shiki-light:#D73A49">...</span><span style="color:#E1E4E8;--shiki-light:#24292E">lassGrammar, name: </span><span style="color:#9ECBFF;--shiki-light:#032F62">'lass'</span><span style="color:#E1E4E8;--shiki-light:#24292E"> }],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#79B8FF;--shiki-light:#005CC5"> html</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#E1E4E8;--shiki-light:#24292E"> highlighter.</span><span style="color:#B392F0;--shiki-light:#6F42C1">codeToHtml</span><span style="color:#E1E4E8;--shiki-light:#24292E">(lassCode, { lang: </span><span style="color:#9ECBFF;--shiki-light:#032F62">'lass'</span><span style="color:#E1E4E8;--shiki-light:#24292E"> })</span></span></code></pre>
+<h3>Usage in a VS Code extension</h3>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-json"><span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">{</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">  "contributes"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">    "grammars"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: [</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">      {</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">        "language"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#9ECBFF;--shiki-light:#032F62">"lass"</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">        "scopeName"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#9ECBFF;--shiki-light:#032F62">"source.lass"</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">        "path"</span><span style="color:#E1E4E8;--shiki-light:#24292E">: </span><span style="color:#9ECBFF;--shiki-light:#032F62">"./node_modules/@lass-lang/lass-tmlanguage/lass.tmLanguage.json"</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">      }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    ]</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  }</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<h3>What it highlights</h3>
+<ul>
+<li><strong>Script Preamble</strong> — TypeScript code between <code>---</code> delimiters</li>
+<li><strong>Expression interpolation</strong> — <code>{{ expression }}</code> blocks</li>
+<li><strong>Style blocks</strong> — <code>@{ css }</code> embedded CSS in TypeScript context</li>
+<li><strong>Variable substitution</strong> — <code>$variable</code> references</li>
+<li><strong>Property accessors</strong> — <code>@(property)</code> lookups</li>
+<li><strong>Line comments</strong> — <code>//</code> single-line comments</li>
+<li><strong>Full CSS</strong> — Complete CSS syntax with Lass extensions</li>
+</ul>
+<p><a href="https://www.npmjs.com/package/@lass-lang/lass-tmlanguage">Package on npm</a> | <a href="https://github.com/lass-lang/lass-tmlanguage">GitHub</a></p>
+<hr>
+<h2>Language Server</h2>
+<p><strong><code>@lass-lang/language-server</code></strong> — Volar-based LSP implementation.</p>
+<p>The language server provides IDE intelligence for <code>.lass</code> files. It's built on <a href="https://volarjs.dev/">Volar</a> — the same framework that powers Vue's language tooling.</p>
+<h3>What it provides</h3>
+<ul>
+<li><strong>IntelliSense</strong> for the TypeScript preamble — auto-complete, hover information, go-to-definition</li>
+<li><strong>Diagnostics</strong> — TypeScript errors surfaced directly in the editor</li>
+<li><strong>Virtual document model</strong> — The preamble and CSS zone are treated as separate embedded languages, each getting full language support</li>
+</ul>
+<p>The language server is consumed by the VS Code extension and can be integrated into any editor that supports the Language Server Protocol (Neovim, Emacs, Sublime Text, etc.).</p>
+<p><a href="https://www.npmjs.com/package/@lass-lang/language-server">Package on npm</a> | <a href="https://github.com/lass-lang/lass-language-server">GitHub</a></p>
+<hr>
+<h2>This Website</h2>
+<p>The site you're reading uses Lass tooling to highlight its own code examples:</p>
+<ol>
+<li><strong>Shiki</strong> loads the Lass TextMate grammar at build time</li>
+<li><strong>markdown-it</strong> renders Markdown pages with Shiki-highlighted code blocks</li>
+<li><strong>vite-plugin-lass</strong> processes the site's own <code>.lass</code> stylesheets (dogfooding)</li>
+<li>The result is <strong>VS Code-quality syntax highlighting with zero client-side JavaScript</strong></li>
+</ol>
+<p>All highlighting is pre-rendered to static HTML during the Vite build.</p>
+<h2>Links</h2>
+<ul>
+<li><a href="../">Home</a></li>
+<li><a href="../getting-started/">Getting Started</a></li>
+<li><a href="../ecosystem/">Ecosystem</a> — Vite, Bun, Webpack plugins</li>
+<li><a href="../examples/">Examples</a></li>
+</ul>
+
+  </main>
+  <script>
+  // Copy button — hero install command only
+  (function() {
+    var pre = document.querySelector('.language-bash');
+    if (!pre) return;
+    var wrap = pre.closest('pre');
+    if (!wrap) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function() {
+      navigator.clipboard.writeText(pre.textContent.trim());
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+    };
+    wrap.style.position = 'relative';
+    btn.style.position = 'absolute';
+    btn.style.top = '0.5rem';
+    btn.style.right = '0.5rem';
+    wrap.appendChild(btn);
+  })();
+  </script>
+</body>
+</html>

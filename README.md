@@ -131,7 +131,11 @@ Code examples on this site use the Lass TextMate grammar for VS Code-quality syn
 
 ## Links
 
-- [More examples](examples/)
+- [Getting Started](getting-started/) — Install for Vite, Bun, Webpack, or CLI
+- [Ecosystem](ecosystem/) — All three bundler plugins in detail
+- [Tooling](tooling/) — VS Code extension, TextMate grammar, language server
+- [Approach](approach/) — Documentation-first development methodology
+- [Examples](examples/) — Verified code examples
+- [llms.txt](llms.txt) — AI-friendly language reference
 - [GitHub](https://github.com/lass-lang)
-- [npm: @lass-lang/vite-plugin-lass](https://www.npmjs.com/package/@lass-lang/vite-plugin-lass)
-- [MIT License](https://github.com/lass-lang/vite-plugin-lass/blob/main/LICENSE)
+- [npm](https://www.npmjs.com/package/@lass-lang/vite-plugin-lass)

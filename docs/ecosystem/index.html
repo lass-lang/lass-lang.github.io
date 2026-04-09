@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lass — CSS + TypeScript. Nothing else.</title>
+  <meta name="description" content="A CSS preprocessor that uses real TypeScript instead of inventing a new language. JavaScript works too. Compiles to static CSS at build time.">
+  <link rel="stylesheet" href="../assets/index-BpLxNsUH.css">
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="../">Lass</a>
+    <a href="../getting-started/">Get Started</a>
+    <a href="../ecosystem/">Ecosystem</a>
+    <a href="../tooling/">Tooling</a>
+    <a href="../approach/">Approach</a>
+    <a href="../examples/">Examples</a>
+    <a href="../llms.txt">llms.txt</a>
+  </nav>
+  <main class="page">
+    <h1>Ecosystem</h1>
+<blockquote>
+<p>Three bundler plugins. Same API surface. Same CSS output.</p>
+</blockquote>
+<p>Lass ships official plugins for Vite, Bun, and Webpack. Each plugin follows the same pattern: intercept <code>.lass</code> imports, transpile to a JavaScript module via <code>@lass-lang/core</code>, execute the module to extract the CSS string, and hand the result to your bundler's CSS pipeline.</p>
+<p>The output is always static CSS. No runtime. No client-side JavaScript.</p>
+<h2>Vite Plugin</h2>
+<p><strong><code>@lass-lang/vite-plugin-lass</code></strong> — The flagship integration.</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">npm</span><span style="color:#9ECBFF;--shiki-light:#032F62"> install</span><span style="color:#9ECBFF;--shiki-light:#032F62"> @lass-lang/vite-plugin-lass</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --save-dev</span></span></code></pre>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-js"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">// vite.config.js</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { defineConfig } </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> 'vite'</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> lass </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> '@lass-lang/vite-plugin-lass'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">export</span><span style="color:#F97583;--shiki-light:#D73A49"> default</span><span style="color:#B392F0;--shiki-light:#6F42C1"> defineConfig</span><span style="color:#E1E4E8;--shiki-light:#24292E">({</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  plugins: [</span><span style="color:#B392F0;--shiki-light:#6F42C1">lass</span><span style="color:#E1E4E8;--shiki-light:#24292E">()]</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">})</span></span></code></pre>
+<p><strong>Key features:</strong></p>
+<ul>
+<li><strong>Hot Module Replacement</strong> — Edit a <code>.lass</code> file, see the change instantly. HMR works through Vite's standard CSS handling.</li>
+<li><strong>CSS Modules</strong> — Name your file <code>.module.lass</code> and import scoped class names.</li>
+<li><strong>TypeScript-first</strong> — Preambles are TypeScript by default. Respects your <code>tsconfig.json</code> when present.</li>
+<li><strong>Zero config</strong> — Works out of the box. One optional setting: <code>verbose: true</code> for debug logging.</li>
+</ul>
+<p><strong>How it works:</strong></p>
+<ol>
+<li>Intercepts <code>.lass</code> file imports</li>
+<li>Resolves <code>.lass</code> to a virtual <code>.css</code> module (e.g., <code>theme.lass</code> -&gt; <code>theme.css</code>)</li>
+<li>Transpiles via <code>@lass-lang/core</code> to a JavaScript module</li>
+<li>Executes the JS module to extract the CSS string</li>
+<li>Returns CSS to Vite's pipeline for standard processing (PostCSS, minification, etc.)</li>
+</ol>
+<p><strong>Peer dependency:</strong> Vite 5 or 6.</p>
+<p><a href="https://github.com/lass-lang/vite-plugin-lass">Full README on GitHub</a></p>
+<hr>
+<h2>Bun Plugin</h2>
+<p><strong><code>@lass-lang/bun-plugin-lass</code></strong> — Native Bun integration.</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">bun</span><span style="color:#9ECBFF;--shiki-light:#032F62"> add</span><span style="color:#9ECBFF;--shiki-light:#032F62"> @lass-lang/bun-plugin-lass</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --dev</span></span></code></pre>
+<h3>With Bun.build()</h3>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-js"><span class="line"><span style="color:#F97583;--shiki-light:#D73A49">import</span><span style="color:#E1E4E8;--shiki-light:#24292E"> lass </span><span style="color:#F97583;--shiki-light:#D73A49">from</span><span style="color:#9ECBFF;--shiki-light:#032F62"> '@lass-lang/bun-plugin-lass'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">await</span><span style="color:#E1E4E8;--shiki-light:#24292E"> Bun.</span><span style="color:#B392F0;--shiki-light:#6F42C1">build</span><span style="color:#E1E4E8;--shiki-light:#24292E">({</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  entrypoints: [</span><span style="color:#9ECBFF;--shiki-light:#032F62">'./src/index.ts'</span><span style="color:#E1E4E8;--shiki-light:#24292E">],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  outdir: </span><span style="color:#9ECBFF;--shiki-light:#032F62">'./dist'</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  plugins: [</span><span style="color:#B392F0;--shiki-light:#6F42C1">lass</span><span style="color:#E1E4E8;--shiki-light:#24292E">()],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">})</span></span></code></pre>
+<h3>With bunfig.toml (zero-config preload)</h3>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-toml"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D"># bunfig.toml</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">preload = [</span><span style="color:#9ECBFF;--shiki-light:#032F62">"@lass-lang/bun-plugin-lass/preload"</span><span style="color:#E1E4E8;--shiki-light:#24292E">]</span></span></code></pre>
+<p>This registers the plugin globally — <code>.lass</code> imports work everywhere without explicit plugin configuration.</p>
+<p><strong>Key features:</strong></p>
+<ul>
+<li><strong>CSS Modules</strong> — <code>.module.lass</code> files return scoped class name objects.</li>
+<li><strong>Preload mode</strong> — Register via <code>bunfig.toml</code> for zero-config builds.</li>
+<li><strong>TypeScript-first</strong> — Same TypeScript-by-default behavior as all Lass plugins.</li>
+</ul>
+<p><strong>How it works:</strong></p>
+<ol>
+<li>Hooks into Bun's <code>onResolve</code>/<code>onLoad</code> plugin API</li>
+<li>Transpiles <code>.lass</code> source to JS via <code>@lass-lang/core</code></li>
+<li>Executes JS to extract CSS string</li>
+<li>Returns CSS with <code>loader: &quot;css&quot;</code> to Bun's CSS pipeline</li>
+<li>For <code>.module.lass</code>: resolves to a virtual <code>.module.css</code> path for CSS Modules scoping</li>
+</ol>
+<p><strong>Limitation:</strong> Bun's plugin API doesn't support HMR. For development with hot reloading, use Vite with <code>@lass-lang/vite-plugin-lass</code>.</p>
+<p><strong>Peer dependency:</strong> Bun 1.0+.</p>
+<p><a href="https://github.com/lass-lang/bun-plugin-lass">Full README on GitHub</a></p>
+<hr>
+<h2>Webpack Plugin</h2>
+<p><strong><code>@lass-lang/webpack-plugin-lass</code></strong> — Webpack 5 loader and plugin.</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">npm</span><span style="color:#9ECBFF;--shiki-light:#032F62"> install</span><span style="color:#9ECBFF;--shiki-light:#032F62"> @lass-lang/webpack-plugin-lass</span><span style="color:#9ECBFF;--shiki-light:#032F62"> css-loader</span><span style="color:#9ECBFF;--shiki-light:#032F62"> mini-css-extract-plugin</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --save-dev</span></span></code></pre>
+<h3>Plugin mode (recommended)</h3>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-js"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">// webpack.config.js</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#E1E4E8;--shiki-light:#24292E"> { </span><span style="color:#79B8FF;--shiki-light:#005CC5">LassPlugin</span><span style="color:#E1E4E8;--shiki-light:#24292E"> } </span><span style="color:#F97583;--shiki-light:#D73A49">=</span><span style="color:#B392F0;--shiki-light:#6F42C1"> require</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#9ECBFF;--shiki-light:#032F62">'@lass-lang/webpack-plugin-lass'</span><span style="color:#E1E4E8;--shiki-light:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">module</span><span style="color:#E1E4E8;--shiki-light:#24292E">.</span><span style="color:#79B8FF;--shiki-light:#005CC5">exports</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  plugins: [</span><span style="color:#F97583;--shiki-light:#D73A49">new</span><span style="color:#B392F0;--shiki-light:#6F42C1"> LassPlugin</span><span style="color:#E1E4E8;--shiki-light:#24292E">()],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p>The plugin auto-configures <code>module.rules</code> — no manual loader setup needed.</p>
+<h3>Manual loader mode</h3>
+<p>For projects that need custom loader chains:</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-js"><span class="line"><span style="color:#6A737D;--shiki-light:#6A737D">// webpack.config.js</span></span>
+<span class="line"><span style="color:#F97583;--shiki-light:#D73A49">const</span><span style="color:#79B8FF;--shiki-light:#005CC5"> MiniCssExtractPlugin</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#B392F0;--shiki-light:#6F42C1"> require</span><span style="color:#E1E4E8;--shiki-light:#24292E">(</span><span style="color:#9ECBFF;--shiki-light:#032F62">'mini-css-extract-plugin'</span><span style="color:#E1E4E8;--shiki-light:#24292E">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF;--shiki-light:#005CC5">module</span><span style="color:#E1E4E8;--shiki-light:#24292E">.</span><span style="color:#79B8FF;--shiki-light:#005CC5">exports</span><span style="color:#F97583;--shiki-light:#D73A49"> =</span><span style="color:#E1E4E8;--shiki-light:#24292E"> {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  module: {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    rules: [</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">      {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">        test:</span><span style="color:#9ECBFF;--shiki-light:#032F62"> /</span><span style="color:#85E89D;--shiki-dark-font-weight:bold;--shiki-light:#22863A;--shiki-light-font-weight:bold">\.</span><span style="color:#DBEDFF;--shiki-light:#032F62">lass</span><span style="color:#F97583;--shiki-light:#D73A49">$</span><span style="color:#9ECBFF;--shiki-light:#032F62">/</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">        use: [</span><span style="color:#9ECBFF;--shiki-light:#032F62">'@lass-lang/webpack-plugin-lass'</span><span style="color:#E1E4E8;--shiki-light:#24292E">],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">        type: </span><span style="color:#9ECBFF;--shiki-light:#032F62">'javascript/auto'</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">      },</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">      {</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">        test:</span><span style="color:#9ECBFF;--shiki-light:#032F62"> /</span><span style="color:#85E89D;--shiki-dark-font-weight:bold;--shiki-light:#22863A;--shiki-light-font-weight:bold">\.</span><span style="color:#DBEDFF;--shiki-light:#032F62">css</span><span style="color:#F97583;--shiki-light:#D73A49">$</span><span style="color:#9ECBFF;--shiki-light:#032F62">/</span><span style="color:#E1E4E8;--shiki-light:#24292E">,</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">        use: [MiniCssExtractPlugin.loader, </span><span style="color:#9ECBFF;--shiki-light:#032F62">'css-loader'</span><span style="color:#E1E4E8;--shiki-light:#24292E">],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">      },</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">    ],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  },</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">  plugins: [</span><span style="color:#F97583;--shiki-light:#D73A49">new</span><span style="color:#B392F0;--shiki-light:#6F42C1"> MiniCssExtractPlugin</span><span style="color:#E1E4E8;--shiki-light:#24292E">()],</span></span>
+<span class="line"><span style="color:#E1E4E8;--shiki-light:#24292E">}</span></span></code></pre>
+<p><strong>Key features:</strong></p>
+<ul>
+<li><strong>Auto-configuration</strong> — <code>LassPlugin</code> sets up <code>module.rules</code> for you.</li>
+<li><strong>CSS Modules</strong> — <code>.module.lass</code> works with <code>css-loader</code>'s module support.</li>
+<li><strong>Watch mode</strong> — Preamble imports are preserved in webpack's module graph for automatic rebuilds.</li>
+<li><strong>TypeScript-first</strong> — Same default behavior as all Lass plugins.</li>
+</ul>
+<p><strong>How it works (Svelte-style pattern):</strong></p>
+<ol>
+<li>First pass: Loader transpiles <code>.lass</code> to JS, executes it to extract CSS</li>
+<li>Caches the CSS and returns JS with a self-referencing inline <code>!=!</code> import</li>
+<li>Second pass: Loader returns cached CSS to webpack's CSS pipeline</li>
+<li>Preamble imports stay in the module graph for watch/rebuild support</li>
+</ol>
+<p><strong>Peer dependency:</strong> Webpack 5+.</p>
+<p><a href="https://github.com/lass-lang/webpack-plugin-lass">Full README on GitHub</a></p>
+<hr>
+<h2>Shared Plugin Utilities</h2>
+<p>All three plugins share common logic via <code>@lass-lang/plugin-utils</code>:</p>
+<ul>
+<li><strong>tsconfig detection</strong> — Automatically finds and respects your <code>tsconfig.json</code></li>
+<li><strong>Script language mode</strong> — TypeScript by default; opt into JavaScript with <code>useJS: true</code></li>
+<li><strong>Consistent API</strong> — All plugins accept the same options (<code>verbose</code>, <code>useJS</code>)</li>
+</ul>
+<h2>CLI</h2>
+<p>For standalone compilation outside of a bundler:</p>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">npm</span><span style="color:#9ECBFF;--shiki-light:#032F62"> install</span><span style="color:#9ECBFF;--shiki-light:#032F62"> @lass-lang/cli</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --save-dev</span></span></code></pre>
+<pre class="shiki shiki-themes github-dark github-light" style="background-color:#24292e;--shiki-light-bg:#fff;color:#e1e4e8;--shiki-light:#24292e" tabindex="0"><code class="language-bash"><span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">npx</span><span style="color:#9ECBFF;--shiki-light:#032F62"> lass</span><span style="color:#9ECBFF;--shiki-light:#032F62"> button.lass</span><span style="color:#9ECBFF;--shiki-light:#032F62"> dist/button.css</span></span>
+<span class="line"><span style="color:#B392F0;--shiki-light:#6F42C1">npx</span><span style="color:#9ECBFF;--shiki-light:#032F62"> lass</span><span style="color:#9ECBFF;--shiki-light:#032F62"> src/styles/</span><span style="color:#79B8FF;--shiki-light:#005CC5"> --out</span><span style="color:#9ECBFF;--shiki-light:#032F62"> dist/css/</span></span></code></pre>
+<p>The CLI uses the same <code>@lass-lang/core</code> transpiler as the bundler plugins. Same input, same output.</p>
+<p><a href="https://github.com/lass-lang/cli">Full CLI docs on GitHub</a></p>
+<hr>
+<h2>Comparison</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Vite</th>
+<th>Bun</th>
+<th>Webpack</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HMR</td>
+<td>Yes</td>
+<td>No</td>
+<td>Watch mode</td>
+</tr>
+<tr>
+<td>CSS Modules</td>
+<td><code>.module.lass</code></td>
+<td><code>.module.lass</code></td>
+<td><code>.module.lass</code></td>
+</tr>
+<tr>
+<td>TypeScript default</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Zero-config</td>
+<td><code>lass()</code></td>
+<td><code>bunfig.toml</code> preload</td>
+<td><code>new LassPlugin()</code></td>
+</tr>
+<tr>
+<td>Peer dep</td>
+<td>Vite 5/6</td>
+<td>Bun 1.0+</td>
+<td>Webpack 5+</td>
+</tr>
+</tbody>
+</table>
+<h2>Links</h2>
+<ul>
+<li><a href="../">Home</a></li>
+<li><a href="../getting-started/">Getting Started</a></li>
+<li><a href="../tooling/">Tooling</a> — VS Code, syntax highlighting</li>
+<li><a href="../examples/">Examples</a></li>
+</ul>
+
+  </main>
+  <script>
+  // Copy button — hero install command only
+  (function() {
+    var pre = document.querySelector('.language-bash');
+    if (!pre) return;
+    var wrap = pre.closest('pre');
+    if (!wrap) return;
+    var btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'Copy';
+    btn.onclick = function() {
+      navigator.clipboard.writeText(pre.textContent.trim());
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+    };
+    wrap.style.position = 'relative';
+    btn.style.position = 'absolute';
+    btn.style.top = '0.5rem';
+    btn.style.right = '0.5rem';
+    wrap.appendChild(btn);
+  })();
+  </script>
+</body>
+</html>

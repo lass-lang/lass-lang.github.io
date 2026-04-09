@@ -12,11 +12,16 @@ function stripFrontmatter(content: string): string {
   return match ? content.slice(match[0].length) : content
 }
 
-/** Recursively find all README.md files, excluding node_modules and _built-pages */
+/** Directories to skip when scanning for README.md files */
+const SKIP_DIRS = new Set([
+  'node_modules', '_built-pages', '.git', 'plugins', 'styles', 'public', 'docs', 'src',
+])
+
+/** Recursively find all README.md files, excluding ignored directories */
 function findReadmes(dir: string, root: string): string[] {
   const results: string[] = []
   for (const entry of readdirSync(dir)) {
-    if (entry === 'node_modules' || entry === '_built-pages' || entry === '.git' || entry === 'plugins' || entry === 'styles') continue
+    if (SKIP_DIRS.has(entry)) continue
     const full = join(dir, entry)
     if (statSync(full).isDirectory()) {
       results.push(...findReadmes(full, root))
@@ -43,7 +48,7 @@ export async function mdPages(options: MdPagesOptions): Promise<Plugin> {
         ...lassGrammar,
         name: 'lass',
       },
-      'javascript', 'typescript', 'css', 'html', 'bash', 'json', 'scss'
+      'javascript', 'typescript', 'css', 'html', 'bash', 'json', 'scss', 'toml', 'markdown'
     ],
   })
 
@@ -87,17 +92,16 @@ export async function mdPages(options: MdPagesOptions): Promise<Plugin> {
         const rel = relative(root, dirname(readme))
         const outPath = rel ? `${rel}/index.html` : 'index.html'
         
-        // Calculate relative CSS path based on page depth
-        // Root level: assets/file.css
-        // One level deep: ../assets/file.css
+        // Calculate relative paths based on page depth
         const depth = rel ? rel.split('/').length : 0
-        const cssRelativePath = depth > 0 
-          ? '../'.repeat(depth) + cssPath
-          : cssPath
+        const rootPrefix = depth > 0 ? '../'.repeat(depth) : ''
+        
+        const cssRelativePath = rootPrefix + cssPath
         
         const page = template
           .replace('{{content}}', html)
           .replace('{{css}}', cssRelativePath)
+          .split('{{root}}').join(rootPrefix || './')
 
         this.emitFile({
           type: 'asset',
